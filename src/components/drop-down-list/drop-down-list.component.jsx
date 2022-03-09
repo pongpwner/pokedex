@@ -4,8 +4,8 @@ import React from "react";
 const DropDownList = ({ options, onChange }) => (
   <select onChange={onChange} className="drop-down-list">
     {options &&
-      options.map((option) => (
-        <option name={option.name} key={option.name} value={option.url}>
+      options.map((option, idx) => (
+        <option name={option.name} key={idx + 1} value={idx + 1}>
           {option.name}
         </option>
       ))}
