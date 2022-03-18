@@ -7,6 +7,8 @@ import {
 import React, { useEffect, useState } from "react";
 import DropDownList from "../../components/drop-down-list/drop-down-list.component";
 import PortraitContainer from "../../components/portrait-container/portrait-container.component";
+import SpriteContainer from "../../components/sprite-container/sprite-container.component";
+import Description from "../../components/description/description.component";
 
 const HomePage = () => {
   //id retrieved from dropdown list
@@ -50,14 +52,32 @@ const HomePage = () => {
   //gets property from current pokemon
   useEffect(() => {
     if (currentPokemon) {
-      setSprite(currentPokemon.sprites.front_default);
-      setTypes(currentPokemon.types);
+      setSprite([
+        currentPokemon.sprites.front_default,
+        currentPokemon.sprites.back_default,
+        currentPokemon.sprites.front_shiny,
+        currentPokemon.sprites.back_shiny,
+      ]);
+
+      setTypes(currentPokemon.types.map((thing) => thing.type.name));
       setHeight(currentPokemon.height);
       setWeight(currentPokemon.weight);
       setName(currentPokemon.name);
+      console.log(types);
     }
   }, [currentPokemon]);
-
+  function prevPokemon() {
+    if (currentPokemonID === 1) {
+      return;
+    }
+    setCurrentPokemonID((prev) => prev - 1);
+  }
+  function nextPokemon() {
+    if (currentPokemonID === 151) {
+      return;
+    }
+    setCurrentPokemonID((prev) => prev + 1);
+  }
   return (
     <div className="home-page">
       <DropDownList
@@ -65,12 +85,25 @@ const HomePage = () => {
         onChange={(event) => setCurrentPokemonID(event.target.value)}
       />
 
-      <img src={sprite} alt="pokemon"></img>
-      <div className="s">{height}</div>
-      <div className="s">{weight}</div>
-      <div className="s">{name}</div>
-      <div className="s">{description}</div>
-      <PortraitContainer></PortraitContainer>
+      <PortraitContainer>
+        <SpriteContainer imageLinks={sprite} />
+        <Description
+          name={name}
+          height={height}
+          weight={weight}
+          description={description}
+          types={types}
+          id={currentPokemonID}
+        />
+      </PortraitContainer>
+      <div className="button-container">
+        <button type="button" className="next-button" onClick={prevPokemon}>
+          Prev
+        </button>
+        <button type="button" className="prev-button" onClick={nextPokemon}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,36 @@
+@use "../../scss/abstracts/variables" as *;
+.sprite-container {
+  display: flex;
+  width: $mobile-content-width;
+  margin: 2rem auto;
+  .image-container {
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    position: relative;
+    .left,
+    .right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: none;
+      font-size: 3rem;
+      background-color: transparent;
+      border: none;
+    }
+    .left {
+      left: 1rem;
+    }
+    .right {
+      right: 1rem;
+    }
+
+    // &:hover .pokemon-sprite {
+    //   transform: scale(1.5);
+    // }
+    .pokemon-sprite {
+      width: 100%;
+      //transition: all 1s;
+    }
+  }
+}
