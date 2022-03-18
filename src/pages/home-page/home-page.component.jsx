@@ -26,7 +26,9 @@ const HomePage = () => {
   const [height, setHeight] = useState(null);
   const [weight, setWeight] = useState(null);
   const [name, setName] = useState(null);
+  const [stats, setStats] = useState(null);
   const [description, setDescription] = useState(null);
+  const [abilities, setAbilities] = useState(null);
 
   //gets pokemon list
   useEffect(() => {
@@ -63,6 +65,15 @@ const HomePage = () => {
       setHeight(currentPokemon.height);
       setWeight(currentPokemon.weight);
       setName(currentPokemon.name);
+      setAbilities(
+        currentPokemon.abilities.map((ability) => ability.ability.name)
+      );
+      setStats(
+        currentPokemon.stats.map((stat) => ({
+          baseStat: stat.base_stat,
+          name: stat.stat.name,
+        }))
+      );
       console.log(types);
     }
   }, [currentPokemon]);
@@ -94,6 +105,8 @@ const HomePage = () => {
           description={description}
           types={types}
           id={currentPokemonID}
+          stats={stats}
+          abilities={abilities}
         />
       </PortraitContainer>
       <div className="button-container">

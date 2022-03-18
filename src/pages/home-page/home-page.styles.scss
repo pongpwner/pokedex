@@ -1,9 +1,9 @@
 .home-page {
   .button-container {
-    position: absolute;
+    //position: absolute;
     width: 100%;
     display: flex;
-    bottom: 1rem;
+    margin: 1rem auto;
     gap: 2rem;
     justify-content: center;
     .next-button,
