@@ -1,18 +1,22 @@
 import "./description.styles.scss";
 
 import React from "react";
+import {
+  useCurrentPokemon,
+  useCurrentPokemonId,
+} from "../../contexts/global-contexts";
+const Description = ({}) => {
+  const currentPokemon = useCurrentPokemon();
+  const currentPokemonID = useCurrentPokemonId();
 
-const Description = ({
-  name,
-  types,
-  height,
-  weight,
-  imgUrl,
-  stats,
-  abilities,
-  description,
-  id,
-}) => {
+  let name = currentPokemon.name;
+  let height = currentPokemon.height;
+  let weight = currentPokemon.weight;
+  let description = currentPokemon.description;
+  let types = currentPokemon.types;
+  let id = currentPokemonID;
+  let stats = currentPokemon.stats;
+  let abilities = currentPokemon.abilities;
   return (
     <div className="description">
       <h1 className="name heading 1">
@@ -20,7 +24,11 @@ const Description = ({
       </h1>
       <div className="types">
         {types &&
-          types.map((type) => <div className={`type ${type}`}> {type}</div>)}
+          types.map((type, id) => (
+            <div key={id} className={`type ${type}`}>
+              {type}
+            </div>
+          ))}
       </div>
       <div className="size">height: {height}cm</div>
       <div className="size">weight: {weight / 10}kg</div>
@@ -29,8 +37,8 @@ const Description = ({
       {stats && (
         <div className="stats">
           <h2 className="heading2">Stats</h2>
-          {stats.map((stat) => (
-            <div className="stat">
+          {stats.map((stat, id) => (
+            <div key={id} className="stat">
               {stat.name}: {stat.baseStat}
             </div>
           ))}
@@ -39,8 +47,10 @@ const Description = ({
       {abilities && (
         <div className="abilities ">
           <h2 className="heading2">Abilities</h2>
-          {abilities.map((ability) => (
-            <div className="ability">{ability}</div>
+          {abilities.map((ability, id) => (
+            <div key={id} className="ability">
+              {ability}
+            </div>
           ))}
         </div>
       )}

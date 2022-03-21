@@ -1,13 +1,19 @@
 import "./scss/_main.scss";
-import HomePage from "./pages/home-page/home-page.component";
+
+import { GlobalContextProvider } from "./contexts/global-contexts";
+
+import PokemonDetails from "./pages/pokemon-details/pokemon-details.component";
+
+import React from "react";
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <GlobalContextProvider>
+        <PokemonDetails />
+      </GlobalContextProvider>
     </div>
   );
 }
 
 export default App;
-
