@@ -27,9 +27,6 @@ export const GlobalContextProvider = ({ children }) => {
   //id retrieved from dropdown list
   const [currentPokemonID, setCurrentPokemonID] = useState(1);
   function changeId(num) {
-    if (currentPokemonID + num === 0 || currentPokemonID + num === 152) {
-      return;
-    }
     return setCurrentPokemonID((prev) => prev + num);
   }
 
