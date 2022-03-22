@@ -13,26 +13,36 @@ const PokemonCard = ({ name, types, id, sprites }) => {
   let currentPokemonID = useCurrentPokemonId();
   let changeId = useUpdateCurrentPokemonId();
   return (
-    <div
-      style={{
-        background: `linear-gradient(${gradientColor1},${gradientColor2})`,
-      }}
-      className={`pokemon-card `}
-    >
-      <div className="sprite-container">
-        <div className="circle">&nbsp;</div>
-        <img className="sprite" src={sprites[0]} alt="pokemon" />
+    <div className={`pokemon-card `}>
+      <div
+        style={{
+          background: `linear-gradient(${gradientColor1},${gradientColor2})`,
+        }}
+        className="card-side card-side-front"
+      >
+        <div className="sprite-container">
+          <div className="circle">&nbsp;</div>
+          <img className="sprite" src={sprites[0]} alt="pokemon" />
+        </div>
+        <h1 className="name"> {name}</h1>
+        <div className="id"> #{id}</div>
+        <div className="types-container">
+          {types.map((type) => (
+            <div className={`type `}>{type}</div>
+          ))}
+        </div>
+        <button type="button" onClick={() => changeId(id - currentPokemonID)}>
+          <Link to="/"> More info</Link>
+        </button>
       </div>
-      <h1 className="name"> {name}</h1>
-      <div className="id"> #{id}</div>
-      <div className="types-container">
-        {types.map((type) => (
-          <div className={`type `}>{type}</div>
-        ))}
+      <div
+        style={{
+          background: `linear-gradient(${gradientColor1},${gradientColor2})`,
+        }}
+        className="card-side card-side-back"
+      >
+        d
       </div>
-      <button type="button" onClick={() => changeId(id - currentPokemonID)}>
-        <Link to="/"> More info</Link>
-      </button>
     </div>
   );
 };
