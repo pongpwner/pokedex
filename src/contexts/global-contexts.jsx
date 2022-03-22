@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getPokemonList, getCurrentPokemon } from "./utilities";
+import {
+  getPokemonList,
+  getCurrentPokemon,
+  getPokemonListWithTypes,
+} from "./utilities";
 
 const PokemonListContext = React.createContext(null);
 export function usePokemonList() {
   return useContext(PokemonListContext);
+}
+
+const PokemonListWithTypesContext = React.createContext(null);
+
+export function usePokemonListWithTypes() {
+  return useContext(PokemonListWithTypesContext);
 }
 
 const CurrentPokemonId = React.createContext(1);
@@ -33,6 +43,9 @@ export const GlobalContextProvider = ({ children }) => {
   //grabs list of all pokemon names and url
   const [pokemonList, setPokemonList] = useState(null);
 
+  //grabs list of all pokemon names and url
+  const [pokemonListWithTypes, setPokemonListWithTypes] = useState(null);
+
   //holds info from an api call
   const [currentPokemon, setCurrentPokemon] = useState(null);
 
@@ -40,12 +53,25 @@ export const GlobalContextProvider = ({ children }) => {
   useEffect(() => {
     async function getData() {
       const pokemonList = await getPokemonList();
-      console.log(pokemonList);
+
       setPokemonList(pokemonList);
     }
     getData();
   }, []);
 
+  //gets pokemon list with their types
+
+  useEffect(() => {
+    if (pokemonList) {
+      const urls = pokemonList.map((pokemon) => pokemon.url);
+      console.log(urls);
+      async function getData() {
+        const data = await getPokemonListWithTypes(urls);
+        setPokemonListWithTypes(data);
+      }
+      getData();
+    }
+  }, [pokemonList]);
   //gets current pokemon and its decription
   useEffect(() => {
     async function getData() {
@@ -67,16 +93,18 @@ export const GlobalContextProvider = ({ children }) => {
     // </currentPokemonID.Provider>
     // </CurrentPokemon.Provider>
     // </updateCurrentPokemon>
-    <UpdateCurrentPokemonId.Provider value={changeId}>
-      <CurrentPokemonId.Provider value={currentPokemonID}>
-        <UpdateCurrentPokemon.Provider value={setCurrentPokemon}>
-          <CurrentPokemon.Provider value={currentPokemon}>
-            <PokemonListContext.Provider value={pokemonList}>
-              {children}
-            </PokemonListContext.Provider>
-          </CurrentPokemon.Provider>
-        </UpdateCurrentPokemon.Provider>
-      </CurrentPokemonId.Provider>
-    </UpdateCurrentPokemonId.Provider>
+    <PokemonListWithTypesContext.Provider value={pokemonListWithTypes}>
+      <UpdateCurrentPokemonId.Provider value={changeId}>
+        <CurrentPokemonId.Provider value={currentPokemonID}>
+          <UpdateCurrentPokemon.Provider value={setCurrentPokemon}>
+            <CurrentPokemon.Provider value={currentPokemon}>
+              <PokemonListContext.Provider value={pokemonList}>
+                {children}
+              </PokemonListContext.Provider>
+            </CurrentPokemon.Provider>
+          </UpdateCurrentPokemon.Provider>
+        </CurrentPokemonId.Provider>
+      </UpdateCurrentPokemonId.Provider>
+    </PokemonListWithTypesContext.Provider>
   );
 };

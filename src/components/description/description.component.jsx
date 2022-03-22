@@ -1,20 +1,16 @@
 import "./description.styles.scss";
 
 import React from "react";
-import {
-  useCurrentPokemon,
-  useCurrentPokemonId,
-} from "../../contexts/global-contexts";
+import { useCurrentPokemon } from "../../contexts/global-contexts";
 const Description = ({}) => {
   const currentPokemon = useCurrentPokemon();
-  const currentPokemonID = useCurrentPokemonId();
 
   let name = currentPokemon.name;
   let height = currentPokemon.height;
   let weight = currentPokemon.weight;
   let description = currentPokemon.description;
   let types = currentPokemon.types;
-  let id = currentPokemonID;
+  let id = currentPokemon.id;
   let stats = currentPokemon.stats;
   let abilities = currentPokemon.abilities;
   return (

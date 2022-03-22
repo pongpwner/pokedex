@@ -1,0 +1,59 @@
+@use "../../scss/abstracts/variables" as *;
+.pokemon-card {
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  position: relative;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+  height: 40rem;
+  width: 30rem;
+
+  .types-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .name {
+    margin-top: 90%;
+  }
+  .id {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 2.5rem;
+    border-radius: 10px;
+    //background-color: rgba(167, 161, 161, 0.5);
+    font-weight: 500;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  .sprite-container {
+    position: relative;
+    width: 30rem;
+    .sprite {
+      width: 80%;
+      position: absolute;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 10%);
+      z-index: 1;
+    }
+    .circle {
+      display: block;
+      min-width: 30rem;
+      min-height: 30rem;
+      background-color: rgba(221, 221, 221, 0.5);
+      clip-path: circle(40%);
+      transform: translate(-50%, -8%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+    }
+  }
+}

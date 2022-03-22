@@ -15,6 +15,7 @@ import {
   useCurrentPokemonId,
   useUpdateCurrentPokemonId,
 } from "../../contexts/global-contexts";
+import { Link } from "react-router-dom";
 
 const PokemonDetails = () => {
   const pokemonList = usePokemonList();
@@ -37,6 +38,7 @@ const PokemonDetails = () => {
   };
   return currentPokemon ? (
     <div className="home-page">
+      <Link to="/show-all">See all Pokemon</Link>
       <DropDownList
         options={pokemonList}
         value={currentPokemonID}
