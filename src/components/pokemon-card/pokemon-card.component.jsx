@@ -38,12 +38,9 @@ const PokemonCard = ({
         <div className="id"> #{id}</div>
         <div className="types-container">
           {types.map((type) => (
-            <div className={`type `}>{type}</div>
+            <div className={`type ${type} `}>&nbsp;</div>
           ))}
         </div>
-        <button type="button" onClick={() => changeId(id - currentPokemonID)}>
-          <Link to="/"> More info</Link>
-        </button>
       </div>
       <div
         style={{
@@ -52,6 +49,7 @@ const PokemonCard = ({
         className="card-side card-side-back"
       >
         <h1 className="name"> {name}</h1>
+
         <div className="pokemon-description">{description}</div>
         <div className="size">
           <div className="weight">weight: {weight / 10}kg</div>

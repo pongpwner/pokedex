@@ -52,7 +52,8 @@
     gap: 2rem;
   }
   .name {
-    margin-top: 90%;
+    margin-top: 85%;
+    margin-bottom: 10%;
   }
   .id {
     display: inline-block;
@@ -93,9 +94,15 @@
   ///////////////////card back styles
   .card-side-back {
     padding: 0 5%;
+    position: relative;
     .name {
       margin: 0;
+      font-size: 2.5rem;
     }
+    .heading2 {
+      font-size: 2rem;
+    }
+
     .pokemon-description {
       font-weight: 500;
     }
@@ -129,5 +136,82 @@
         content: ",";
       }
     }
+  }
+
+  .type {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+  .normal {
+    background-image: url("../../assets/images/normal.png");
+    background-repeat: no-repeat;
+  }
+  .fire {
+    background-image: url("../../assets/images/fire.png");
+    background-repeat: no-repeat;
+  }
+  .water {
+    background-image: url("../../assets/images/water.png");
+    background-repeat: no-repeat;
+  }
+  .grass {
+    background-image: url("../../assets/images/grass.png");
+    background-repeat: no-repeat;
+  }
+  .electric {
+    background-image: url("../../assets/images/electric.png");
+    background-repeat: no-repeat;
+  }
+  .ice {
+    background-image: url("../../assets/images/ice.png");
+    background-repeat: no-repeat;
+  }
+  .fighting {
+    background-image: url("../../assets/images/fighting.png");
+    background-repeat: no-repeat;
+  }
+  .poison {
+    background-image: url("../../assets/images/poison.png");
+    background-repeat: no-repeat;
+  }
+  .ground {
+    background-image: url("../../assets/images/ground.png");
+    background-repeat: no-repeat;
+  }
+  .flying {
+    background-image: url("../../assets/images/flying.png");
+    background-repeat: no-repeat;
+  }
+  .psychic {
+    background-image: url("../../assets/images/psychic.png");
+    background-repeat: no-repeat;
+  }
+  .bug {
+    background-image: url("../../assets/images/bug.png");
+    background-repeat: no-repeat;
+  }
+  .rock {
+    background-image: url("../../assets/images/rock.png");
+    background-repeat: no-repeat;
+  }
+  .ghost {
+    background-image: url("../../assets/images/ghost.png");
+    background-repeat: no-repeat;
+  }
+  .dark {
+    background-image: url("../../assets/images/dark.png");
+    background-repeat: no-repeat;
+  }
+  .dragon {
+    background-image: url("../../assets/images/dragon.png");
+    background-repeat: no-repeat;
+  }
+  .steel {
+    background-image: url("../../assets/images/steel.png");
+    background-repeat: no-repeat;
+  }
+  .fairy {
+    background-image: url("../../assets/images/fairy.png");
+    background-repeat: no-repeat;
   }
 }

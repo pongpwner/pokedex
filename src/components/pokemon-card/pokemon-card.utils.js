@@ -1,24 +1,24 @@
 export function typeColorGradient(types) {
   let color1;
   let color2;
-  const normal = "#edeef0";
-  const fire = "#ffca45";
+  const normal = "#bfbfbf";
+  const fire = "#ffbc40";
   const water = "#33c5ff";
-  const grass = "#23db4e";
+  const grass = "#59ed4e";
   const electric = "#f7fa39";
   const ice = "#82f7ff";
-  const fighting = "#c93510";
-  const poison = "#c44dff";
-  const ground = "#994d00";
-  const flying = "#bfbfbf";
-  const psychic = "#ff59d6";
+  const fighting = "#e05f02";
+  const poison = "#b787ff";
+  const ground = "#d98e4c";
+  const flying = "#a7c4c9";
+  const psychic = "#ff8aed";
   const bug = "#9dd100";
-  const rock = "#785a10";
-  const ghost = "#660085";
-  const dark = "#0e0012";
-  const dragon = "#554dff";
-  const steel = "#aaaab3";
-  const fairy = "#fabbf6";
+  const rock = "#d6b292";
+  const ghost = "#8769ff";
+  const dark = "#474747";
+  const dragon = "#6685ff";
+  const steel = "#8e99a3";
+  const fairy = "#ffd4f8";
   //make all colors variables
   switch (types[0]) {
     case "normal":
