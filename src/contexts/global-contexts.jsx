@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   getPokemonList,
   getCurrentPokemon,
-  getPokemonListWithTypes,
+  getPokemonListWithInfo,
 } from "./utilities";
 
 const PokemonListContext = React.createContext(null);
@@ -10,10 +10,10 @@ export function usePokemonList() {
   return useContext(PokemonListContext);
 }
 
-const PokemonListWithTypesContext = React.createContext(null);
+const PokemonListWithInfoContext = React.createContext(null);
 
-export function usePokemonListWithTypes() {
-  return useContext(PokemonListWithTypesContext);
+export function usePokemonListWithInfo() {
+  return useContext(PokemonListWithInfoContext);
 }
 
 const CurrentPokemonId = React.createContext(1);
@@ -66,7 +66,7 @@ export const GlobalContextProvider = ({ children }) => {
       const urls = pokemonList.map((pokemon) => pokemon.url);
       console.log(urls);
       async function getData() {
-        const data = await getPokemonListWithTypes(urls);
+        const data = await getPokemonListWithInfo(urls);
         setPokemonListWithTypes(data);
       }
       getData();
@@ -93,7 +93,7 @@ export const GlobalContextProvider = ({ children }) => {
     // </currentPokemonID.Provider>
     // </CurrentPokemon.Provider>
     // </updateCurrentPokemon>
-    <PokemonListWithTypesContext.Provider value={pokemonListWithTypes}>
+    <PokemonListWithInfoContext.Provider value={pokemonListWithTypes}>
       <UpdateCurrentPokemonId.Provider value={changeId}>
         <CurrentPokemonId.Provider value={currentPokemonID}>
           <UpdateCurrentPokemon.Provider value={setCurrentPokemon}>
@@ -105,6 +105,6 @@ export const GlobalContextProvider = ({ children }) => {
           </UpdateCurrentPokemon.Provider>
         </CurrentPokemonId.Provider>
       </UpdateCurrentPokemonId.Provider>
-    </PokemonListWithTypesContext.Provider>
+    </PokemonListWithInfoContext.Provider>
   );
 };

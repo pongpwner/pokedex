@@ -2,10 +2,10 @@ import { getAllByAltText } from "@testing-library/react";
 import React from "react";
 import "./show-all.styles.scss";
 import PokemonCard from "../../components/pokemon-card/pokemon-card.component";
-import { usePokemonListWithTypes } from "../../contexts/global-contexts";
+import { usePokemonListWithInfo } from "../../contexts/global-contexts";
 import { Link } from "react-router-dom";
 const ShowAll = () => {
-  let pokemonList = usePokemonListWithTypes();
+  let pokemonList = usePokemonListWithInfo();
   return (
     <div className="show-all">
       <Link to="/"> Home</Link>
@@ -17,6 +17,11 @@ const ShowAll = () => {
               types={pokemon.types}
               id={pokemon.id}
               sprites={pokemon.sprites}
+              stats={pokemon.stats}
+              weight={pokemon.weight}
+              height={pokemon.height}
+              abilities={pokemon.abilities}
+              description={pokemon.description}
             />
           ))
         : null}

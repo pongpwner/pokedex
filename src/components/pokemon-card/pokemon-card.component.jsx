@@ -6,7 +6,17 @@ import {
   useCurrentPokemonId,
   useUpdateCurrentPokemonId,
 } from "../../contexts/global-contexts";
-const PokemonCard = ({ name, types, id, sprites }) => {
+const PokemonCard = ({
+  name,
+  types,
+  id,
+  sprites,
+  stats,
+  weight,
+  height,
+  abilities,
+  description,
+}) => {
   let gradientColors = typeColorGradient(types);
   let gradientColor1 = gradientColors[0];
   let gradientColor2 = gradientColors[1];
@@ -41,7 +51,31 @@ const PokemonCard = ({ name, types, id, sprites }) => {
         }}
         className="card-side card-side-back"
       >
-        d
+        <h1 className="name"> {name}</h1>
+        <div className="pokemon-description">{description}</div>
+        <div className="size">
+          <div className="weight">weight: {weight / 10}kg</div>
+          <div className="height">height: {height}cm</div>
+        </div>
+        <div className="stats">
+          <h2 className="heading2">Base Stats</h2>
+          {stats.map((stat, id) => (
+            <div key={id} className="stat">
+              {stat.name}: {stat.baseStat}
+            </div>
+          ))}
+        </div>
+
+        <div className="abilities ">
+          <h2 className="heading2">Abilities</h2>
+          <div className="abilities-list">
+            {abilities.map((ability, id) => (
+              <div key={id} className="ability">
+                {ability}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
