@@ -12,6 +12,9 @@
 
   perspective: 150rem;
   -moz-perspective: 150rem;
+  &:hover {
+    cursor: pointer;
+  }
 
   &:hover .card-side-front {
     transform: rotateY(-180deg);
