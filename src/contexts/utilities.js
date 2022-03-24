@@ -36,33 +36,6 @@ export async function getPokemonListWithInfo(pokemonList) {
   console.log(listPokemon);
   console.log(listDescription);
   let lastList = [];
-  // let finalList = listPokemon.map((pokemonData) => {
-  //   console.log(listPokemon);
-  //   let typesArray = pokemonData.types.map((thing) => thing.type.name);
-  //   let statsArray = pokemonData.stats.map((stat) => ({
-  //     baseStat: stat.base_stat,
-  //     name: stat.stat.name,
-  //   }));
-  //   let abilitiesArray = pokemonData.abilities.map(
-  //     (ability) => ability.ability.name
-  //   );
-  //   return {
-  //     sprites: [
-  //       pokemonData.sprites.front_default,
-  //       pokemonData.sprites.back_default,
-  //       pokemonData.sprites.front_shiny,
-  //       pokemonData.sprites.back_shiny,
-  //     ],
-  //     name: pokemonData.name,
-  //     types: typesArray,
-  //     id: pokemonData.id,
-  //     height: pokemonData.height,
-  //     weight: pokemonData.weight,
-  //     abilities: abilitiesArray,
-  //     stats: statsArray,
-  //     //description: pokedexDescription,
-  //   };
-  // });
 
   for (let i = 0; i < listPokemon.length; i++) {
     let typesArray = listPokemon[i].types.map((thing) => thing.type.name);
@@ -89,6 +62,7 @@ export async function getPokemonListWithInfo(pokemonList) {
       abilities: abilitiesArray,
       stats: statsArray,
       description: description,
+      evolutionChain: listDescription[i].evolution_chain.url,
     });
   }
   //console.log(finalList);
