@@ -6,6 +6,10 @@ import { typeColorGradient } from "./pokemon-card.utils";
 import {
   useCurrentPokemonId,
   useUpdateCurrentPokemonId,
+  useEvolutionChain,
+  useUpdateEvolutionChain,
+  useCurrentPokemon,
+  useSelectCurrentPokemonId,
 } from "../../contexts/global-contexts";
 const PokemonCard = ({
   name,
@@ -24,8 +28,23 @@ const PokemonCard = ({
   let gradientColor2 = gradientColors[1];
   let currentPokemonID = useCurrentPokemonId();
   let changeId = useUpdateCurrentPokemonId();
+  let setEvolutionChain = useUpdateEvolutionChain();
+  let evolutionChain = useEvolutionChain();
+  let currentPokemon = useCurrentPokemon();
+  let selectPokemonId = useSelectCurrentPokemonId();
+  function openModal() {
+    //console.log(currentPokemonID);
+    // async function getData() {
+    //   await selectPokemonId(id);
+    // }
+    selectPokemonId(id);
+    //getData();
+    setEvolutionChain(currentPokemon.evolution_chain);
+    console.log(currentPokemon);
+    setIsModalOpen(true);
+  }
   return (
-    <div className={`pokemon-card `} onClick={() => setIsModalOpen(true)}>
+    <div className={`pokemon-card `} onClick={openModal}>
       <div
         style={{
           background: `linear-gradient(${gradientColor1},${gradientColor2})`,
@@ -39,8 +58,10 @@ const PokemonCard = ({
         <h1 className="name"> {name}</h1>
         <div className="id"> #{id}</div>
         <div className="types-container">
-          {types.map((type) => (
-            <div className={`type ${type} `}>&nbsp;</div>
+          {types.map((type, idx) => (
+            <div key={idx} className={`type ${type} `}>
+              &nbsp;
+            </div>
           ))}
         </div>
       </div>
@@ -92,8 +113,10 @@ const PokemonCard = ({
         <h1 className="name"> {name}</h1>
         <div className="id"> #{id}</div>
         <div className="types-container">
-          {types.map((type) => (
-            <div className={`type ${type} `}>&nbsp;</div>
+          {types.map((type, idx) => (
+            <div key={idx} className={`type ${type} `}>
+              &nbsp;
+            </div>
           ))}
         </div>
         <div className="pokemon-description">{description}</div>

@@ -7,8 +7,51 @@ export async function getPokemonDescription(id) {
   return data.flavor_text_entries[0].flavor_text;
 }
 
+export async function getEvolutionChain(url) {
+  const evoChain = await fetch(url).then((res) => res.json());
+  let chain = [];
+  //evolution stage1
+  let stage1 = [
+    { name: evoChain.chain.species.name, url: evoChain.chain.species.url },
+  ];
+  let stage2;
+  let stage3;
+  let stage4;
+
+  if (evoChain.chain.evolves_to.length === 0) {
+    return chain;
+  }
+  //evolution stage2
+  if (evoChain.chain.evolves_to.length > 0) {
+    stage2 = evoChain.chain.evolves_to.map((evo) => ({
+      name: evo.species.name,
+      url: evo.species.url,
+    }));
+    chain.push(stage1);
+    chain.push(stage2);
+    //evolution stage3
+    if (evoChain.chain.evolves_to[0].evolves_to.length > 0) {
+      stage3 = evoChain.chain.evolves_to[0].evolves_to.map((evo) => ({
+        name: evo.species.name,
+        url: evo.species.url,
+      }));
+      chain.push(stage3);
+      //evolution stage4
+      if (evoChain.chain.evolves_to[0].evolves_to[0].evolves_to.length > 0) {
+        stage4 = evoChain.chain.evolves_to.map((evo) => ({
+          name: evo.species.name,
+          url: evo.species.url,
+        }));
+        chain.push(stage4);
+      }
+    }
+  }
+  console.log(chain);
+  return chain;
+}
+
 export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=390").then(
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=300").then(
     (response) => response.json()
   );
 
@@ -33,8 +76,8 @@ export async function getPokemonListWithInfo(pokemonList) {
       return pokemonData;
     })
   );
-  console.log(listPokemon);
-  console.log(listDescription);
+  //console.log(listPokemon);
+  //console.log(listDescription);
   let lastList = [];
 
   for (let i = 0; i < listPokemon.length; i++) {
@@ -65,7 +108,7 @@ export async function getPokemonListWithInfo(pokemonList) {
       evolutionChain: listDescription[i].evolution_chain.url,
     });
   }
-  //console.log(finalList);
+  //console.log(lastList);
   return lastList;
 }
 
@@ -107,5 +150,6 @@ export async function getCurrentPokemon(id) {
     stats: statsArray,
     description: pokdexDesciption,
     id: id,
+    evolutionChain: data1.evolution_chain.url,
   };
 }
