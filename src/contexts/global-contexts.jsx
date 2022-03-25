@@ -102,6 +102,7 @@ export const GlobalContextProvider = ({ children }) => {
 
   // gets evolution chain
   useEffect(() => {
+    console.log("eeeeeeeeeeee");
     if (currentPokemon) {
       async function getData() {
         //console.log(currentPokemon);

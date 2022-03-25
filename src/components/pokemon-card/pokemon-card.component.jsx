@@ -34,15 +34,18 @@ const PokemonCard = ({
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
   function openModal() {
+    if (currentPokemonID !== id) {
+      selectPokemonId(id);
+      //getData();
+      console.log(currentPokemon);
+      setEvolutionChain(currentPokemon.evolution_chain);
+      console.log(evolutionChain);
+      setIsModalOpen(true);
+    }
     //console.log(currentPokemonID);
     // async function getData() {
     //   await selectPokemonId(id);
     // }
-    selectPokemonId(id);
-    //getData();
-    setEvolutionChain(currentPokemon.evolution_chain);
-    console.log(currentPokemon);
-    setIsModalOpen(true);
   }
   return (
     <div className={`pokemon-card `} onClick={openModal}>
