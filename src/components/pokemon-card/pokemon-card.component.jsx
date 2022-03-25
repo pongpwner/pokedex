@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./pokemon-card.styles.scss";
+import EvolutionChain from "../evolution-chain/evolution-chain.component";
 import Modal from "../modal/modal.component";
 import { typeColorGradient } from "./pokemon-card.utils";
 import {
@@ -106,6 +107,7 @@ const PokemonCard = ({
           e.stopPropagation();
         }}
       >
+        <EvolutionChain evolutionChain={evolutionChain} />
         <div className="sprite-container">
           <div className="circle">&nbsp;</div>
           <img className="sprite" src={sprites[0]} alt="pokemon" />

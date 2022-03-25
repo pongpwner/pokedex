@@ -9,45 +9,98 @@ export async function getPokemonDescription(id) {
 
 export async function getEvolutionChain(url) {
   const evoChain = await fetch(url).then((res) => res.json());
-  let chain = [];
-  //evolution stage1
-  let stage1 = [
-    { name: evoChain.chain.species.name, url: evoChain.chain.species.url },
-  ];
-  let stage2;
-  let stage3;
-  let stage4;
+  let stage2 = evoChain.chain.evolves_to;
+  async function getSprite(url) {
+    let data = await fetch(evoChain.chain.species.url).then((res) =>
+      res.json()
+    );
+    let sprite = data.sprites.front_default;
+    return sprite;
+  }
 
-  if (evoChain.chain.evolves_to.length === 0) {
+  let chain = {
+    stage: "one",
+    name: evoChain.chain.species.name,
+    url: evoChain.chain.species.url,
+    sprite: getSprite(evoChain.chain.species.url),
+    evolvesTo: [],
+  };
+  //console.log(stage2);
+  if (stage2.length > 0) {
+    chain.evolvesTo = stage2.map((pokemon) => {
+      return {
+        name: pokemon.species.name,
+        sprite: getSprite(pokemon.species.url),
+        url: pokemon.species.url,
+        evolvesTo: pokemon.evolves_to.map((pokemon) => {
+          if (pokemon.evolves_to.length === 0) {
+            return {
+              name: pokemon.species.name,
+              url: pokemon.species.url,
+            };
+          }
+          return {
+            name: pokemon.species.name,
+            sprite: getSprite(pokemon.species.url),
+            url: pokemon.species.url,
+            evolvesTo: pokemon.evolves_to.map((pokemon) => {
+              if (pokemon.evolves_to.length === 0) {
+                return {
+                  name: pokemon.species.name,
+                  url: pokemon.species.url,
+                };
+              }
+              return {
+                name: pokemon.species.name,
+                url: pokemon.species.url,
+                sprite: getSprite(pokemon.species.url),
+              };
+            }),
+          };
+        }),
+      };
+    });
+    console.log(chain);
     return chain;
   }
-  //evolution stage2
-  if (evoChain.chain.evolves_to.length > 0) {
-    stage2 = evoChain.chain.evolves_to.map((evo) => ({
-      name: evo.species.name,
-      url: evo.species.url,
-    }));
-    chain.push(stage1);
-    chain.push(stage2);
-    //evolution stage3
-    if (evoChain.chain.evolves_to[0].evolves_to.length > 0) {
-      stage3 = evoChain.chain.evolves_to[0].evolves_to.map((evo) => ({
-        name: evo.species.name,
-        url: evo.species.url,
-      }));
-      chain.push(stage3);
-      //evolution stage4
-      if (evoChain.chain.evolves_to[0].evolves_to[0].evolves_to.length > 0) {
-        stage4 = evoChain.chain.evolves_to.map((evo) => ({
-          name: evo.species.name,
-          url: evo.species.url,
-        }));
-        chain.push(stage4);
-      }
-    }
-  }
-  console.log(chain);
-  return chain;
+
+  //evolution stage1
+  // let stage2;
+  // let stage3;
+  // let stage4;
+  // if (evoChain.chain.evolves_to.length === 0) {
+  //   return chain;
+  // }
+  // //evolution stage2
+  // if (evoChain.chain.evolves_to.length > 0) {
+  //   chain.evolvesTo = evoChain.chain.evolves_to.map((evo) => ({
+  //     stage: "two",
+  //     name: evo.species.name,
+  //     url: evo.species.url,
+  //     evolvesTo: [],
+  //   }));
+  //evoChain.evolves_to.forEach((pokemon) => {});
+
+  //evolution stage3
+  // if (evoChain.chain.evolves_to[0].evolves_to.length > 0) {
+  //   stage3 = evoChain.chain.evolves_to[0].evolves_to.map((evo) => ({
+  //     name: evo.species.name,
+  //     url: evo.species.url,
+  //   }));
+  //   chain.push(stage3);
+  //   //evolution stage4
+  //   if (evoChain.chain.evolves_to[0].evolves_to[0].evolves_to.length > 0) {
+  //     stage4 = evoChain.chain.evolves_to.map((evo) => ({
+  //       name: evo.species.name,
+  //       url: evo.species.url,
+  //     }));
+  //     chain.push(stage4);
+  //   }
+  // }
+  // }
+  // let flatChain=evoChain.chain
+  // console.log(evoChain);
+  // return evoChain;
 }
 
 export async function getPokemonList() {
