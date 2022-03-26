@@ -15,37 +15,35 @@ const EvolutionChain = ({ evolutionChain }) => {
   let stage1 = (
     <div className="stage1-container">
       <div className="stage1 seperate1">
-        <div className="stage1 name">
-          {evolutionChain.name}
+        <div className="stage1 sprite ">
           <img src={evolutionChain.sprite} alt="pokemon" />
         </div>
+        <div className="down-arrow">&#8595;</div>
 
         <div className="stage2-container">
           {evolutionChain.evolvesTo.length > 0
             ? evolutionChain.evolvesTo.map((pokemon) => {
-                console.log(pokemon);
                 return (
                   <div className="stage2 seperate-2">
-                    <div className="stage2 name">
-                      {pokemon.name}
+                    <div className="stage2 sprite">
                       <img src={pokemon.sprite} alt="pokemon" />
                     </div>
-
+                    {pokemon.evolvesTo.length > 0 ? (
+                      <div className="down-arrow">&#8595;</div>
+                    ) : null}
                     <div className="stage3-container">
                       {pokemon.evolvesTo.length > 0
                         ? pokemon.evolvesTo.map((pokemon) => {
                             console.log(pokemon);
                             return (
                               <div className="stage3 seperate-3">
-                                <div className="stage3 name">
-                                  {pokemon.name}
+                                <div className="stage3 sprite">
                                   <img src={pokemon.sprite} alt="pokemon" />
                                 </div>
                                 <div className="stage4-container">
                                   {pokemon.evolvesTo
                                     ? pokemon.evolvesTo.map((pokemon) => (
-                                        <div>
-                                          {pokemon.name}
+                                        <div className="sprite stage4">
                                           <img
                                             src={pokemon.sprite}
                                             alt="pokemon"
@@ -70,6 +68,7 @@ const EvolutionChain = ({ evolutionChain }) => {
 
   return (
     <div className="evolution-chain">
+      <h2 className="heading2">Evolution</h2>
       <div className="stage1">{stage1}</div>
     </div>
   );

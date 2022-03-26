@@ -49,7 +49,7 @@ export function useUpdateCurrentPokemon() {
 //////////////////////////////////////////////////////////////////////
 export const GlobalContextProvider = ({ children }) => {
   //id retrieved from dropdown list
-  const [currentPokemonID, setCurrentPokemonID] = useState(1);
+  const [currentPokemonID, setCurrentPokemonID] = useState(118);
   function changeId(num) {
     return setCurrentPokemonID((prev) => prev + num);
   }
@@ -102,7 +102,6 @@ export const GlobalContextProvider = ({ children }) => {
 
   // gets evolution chain
   useEffect(() => {
-    console.log("eeeeeeeeeeee");
     if (currentPokemon) {
       async function getData() {
         //console.log(currentPokemon);

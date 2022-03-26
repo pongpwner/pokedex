@@ -110,26 +110,33 @@ const PokemonCard = ({
           e.stopPropagation();
         }}
       >
-        <EvolutionChain evolutionChain={evolutionChain} />
-        <div className="sprite-container">
-          <div className="circle">&nbsp;</div>
-          <img className="sprite" src={sprites[0]} alt="pokemon" />
+        <div className="container-flex-column background align-center">
+          <div className="sprite-container">
+            <img
+              className="sprite center-block"
+              src={sprites[0]}
+              alt="pokemon"
+            />
+          </div>
+          <h1 className="name"> {name}</h1>
+          <div className="id"> #{id}</div>
+          <div className="types-container">
+            {types.map((type, idx) => (
+              <div key={idx} className={`type ${type} `}>
+                &nbsp;
+              </div>
+            ))}
+          </div>
+          <div className="size">
+            <div className="weight">weight: {weight / 10}kg</div>
+            <div className="height">height: {height}cm</div>
+          </div>
         </div>
-        <h1 className="name"> {name}</h1>
-        <div className="id"> #{id}</div>
-        <div className="types-container">
-          {types.map((type, idx) => (
-            <div key={idx} className={`type ${type} `}>
-              &nbsp;
-            </div>
-          ))}
+        <div className="background">
+          <div className="pokemon-description">{description}</div>
         </div>
-        <div className="pokemon-description">{description}</div>
-        <div className="size">
-          <div className="weight">weight: {weight / 10}kg</div>
-          <div className="height">height: {height}cm</div>
-        </div>
-        <div className="stats">
+
+        <div className="stats background">
           <h2 className="heading2">Base Stats</h2>
           {stats.map((stat, id) => (
             <div key={id} className="stat">
@@ -138,7 +145,7 @@ const PokemonCard = ({
           ))}
         </div>
 
-        <div className="abilities ">
+        <div className="abilities background ">
           <h2 className="heading2">Abilities</h2>
           <div className="abilities-list">
             {abilities.map((ability, id) => (
@@ -147,6 +154,9 @@ const PokemonCard = ({
               </div>
             ))}
           </div>
+        </div>
+        <div className="background">
+          <EvolutionChain evolutionChain={evolutionChain} />
         </div>
       </Modal>
     </div>
