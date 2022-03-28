@@ -68,7 +68,6 @@ const EvolutionChain = ({ evolutionChain }) => {
 
   return (
     <div className="evolution-chain">
-      <h2 className="heading2">Evolution</h2>
       <div className="stage1">{stage1}</div>
     </div>
   );

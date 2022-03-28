@@ -169,6 +169,7 @@ const PokemonCard = ({
             <div className="height">height: {currentPokemon.height * 10}cm</div>
           </div>
         </div>
+        <h2 className="heading2">Description</h2>
         <div className="background">
           <div className="pokemon-description">
             {currentPokemon.description}
@@ -183,9 +184,8 @@ const PokemonCard = ({
             </div>
           ))}
         </div>
-
+        <h2 className="heading2">Abilities</h2>
         <div className="abilities background ">
-          <h2 className="heading2">Abilities</h2>
           <div className="abilities-list">
             {currentPokemon.abilities.map((ability, id) => (
               <div key={id} className="ability">
@@ -194,6 +194,7 @@ const PokemonCard = ({
             ))}
           </div>
         </div>
+        <h2 className="heading2">Evolution</h2>
         <div className="background">
           <EvolutionChain evolutionChain={evolutionChain} />
         </div>
