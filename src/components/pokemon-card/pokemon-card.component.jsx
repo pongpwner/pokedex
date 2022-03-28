@@ -121,6 +121,7 @@ const PokemonCard = ({
       </div>
 
       <Modal
+        currentPokemon={currentPokemon}
         isOpen={isModalOpen}
         closeModal={(e) => {
           setIsModalOpen(false);
@@ -152,10 +153,10 @@ const PokemonCard = ({
               Next
             </button>
           </div>
+          <h1 className="name"> {currentPokemon.name}</h1>
           <div className="sprite-container">
             <SpriteContainer />
           </div>
-          <h1 className="name"> {currentPokemon.name}</h1>
 
           <div className="types-container">
             {currentPokemon.types.map((type, idx) => (
