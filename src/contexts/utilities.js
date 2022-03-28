@@ -42,9 +42,9 @@ export async function getEvolutionChain(url) {
               let sprite1 = await fetch(
                 pokemon.species.url.replace("-species", "")
               ).then((res) => res.json());
-              console.log(pokemon.species.name);
-              console.log(pokemon.species.url);
-              console.log(sprite1);
+              //console.log(pokemon.species.name);
+              //console.log(pokemon.species.url);
+              //console.log(sprite1);
               if (pokemon.evolves_to.length === 0) {
                 return {
                   name: pokemon.species.name,
@@ -76,7 +76,7 @@ export async function getEvolutionChain(url) {
         };
       })
     );
-    console.log(chain);
+    // console.log(chain);
     return chain;
   }
 
@@ -120,7 +120,7 @@ export async function getEvolutionChain(url) {
 }
 
 export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=300").then(
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10").then(
     (response) => response.json()
   );
 

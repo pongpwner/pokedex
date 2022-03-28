@@ -26,10 +26,22 @@ const SpriteContainer = () => {
   return (
     <div className="sprite-container">
       <div className="image-container">
-        <button className="left" onClick={prevSprite}>
+        <button
+          className="left"
+          onClick={(e) => {
+            prevSprite();
+            e.stopPropagation();
+          }}
+        >
           &lt;
         </button>
-        <button className="right" onClick={nextSprite}>
+        <button
+          className="right"
+          onClick={(e) => {
+            nextSprite();
+            e.stopPropagation();
+          }}
+        >
           &gt;
         </button>
 

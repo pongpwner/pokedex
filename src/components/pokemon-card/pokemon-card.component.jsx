@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./pokemon-card.styles.scss";
 import EvolutionChain from "../evolution-chain/evolution-chain.component";
+import SpriteContainer from "../sprite-container/sprite-container.component";
 import Modal from "../modal/modal.component";
 import { typeColorGradient } from "./pokemon-card.utils";
 import {
@@ -33,13 +34,29 @@ const PokemonCard = ({
   let evolutionChain = useEvolutionChain();
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
+  function prevPokemon() {
+    if (currentPokemonID === 1) {
+      return;
+    }
+    selectPokemonId((prev) => prev - 1);
+    console.log(currentPokemonID);
+    //changeId(-1);
+  }
+  const nextPokemon = () => {
+    if (currentPokemonID === 151) {
+      return;
+    }
+    selectPokemonId((prev) => prev + 1);
+    console.log(currentPokemonID);
+    //changeId(1);
+  };
   function openModal() {
     if (currentPokemonID !== id) {
       selectPokemonId(id);
       //getData();
-      console.log(currentPokemon);
+      // console.log(currentPokemon);
       setEvolutionChain(currentPokemon.evolution_chain);
-      console.log(evolutionChain);
+      //console.log(evolutionChain);
       setIsModalOpen(true);
     }
     //console.log(currentPokemonID);
@@ -111,34 +128,56 @@ const PokemonCard = ({
         }}
       >
         <div className="container-flex-column background align-center">
-          <div className="sprite-container">
-            <img
-              className="sprite center-block"
-              src={sprites[0]}
-              alt="pokemon"
-            />
+          <div className="navi">
+            <button
+              type="button"
+              className="next-button"
+              onClick={(e) => {
+                prevPokemon();
+                e.stopPropagation();
+              }}
+            >
+              Prev
+            </button>
+
+            <div className="id"> #{currentPokemon.id}</div>
+            <button
+              type="button"
+              className="prev-button"
+              onClick={(e) => {
+                nextPokemon();
+                e.stopPropagation();
+              }}
+            >
+              Next
+            </button>
           </div>
-          <h1 className="name"> {name}</h1>
-          <div className="id"> #{id}</div>
+          <div className="sprite-container">
+            <SpriteContainer />
+          </div>
+          <h1 className="name"> {currentPokemon.name}</h1>
+
           <div className="types-container">
-            {types.map((type, idx) => (
+            {currentPokemon.types.map((type, idx) => (
               <div key={idx} className={`type ${type} `}>
                 &nbsp;
               </div>
             ))}
           </div>
           <div className="size">
-            <div className="weight">weight: {weight / 10}kg</div>
-            <div className="height">height: {height}cm</div>
+            <div className="weight">weight: {currentPokemon.weight / 10}kg</div>
+            <div className="height">height: {currentPokemon.height * 10}cm</div>
           </div>
         </div>
         <div className="background">
-          <div className="pokemon-description">{description}</div>
+          <div className="pokemon-description">
+            {currentPokemon.description}
+          </div>
         </div>
 
         <div className="stats background">
           <h2 className="heading2">Base Stats</h2>
-          {stats.map((stat, id) => (
+          {currentPokemon.stats.map((stat, id) => (
             <div key={id} className="stat">
               {stat.name}: {stat.baseStat}
             </div>
@@ -148,7 +187,7 @@ const PokemonCard = ({
         <div className="abilities background ">
           <h2 className="heading2">Abilities</h2>
           <div className="abilities-list">
-            {abilities.map((ability, id) => (
+            {currentPokemon.abilities.map((ability, id) => (
               <div key={id} className="ability">
                 {ability}
               </div>
