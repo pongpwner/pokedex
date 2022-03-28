@@ -174,12 +174,12 @@ const PokemonCard = ({
             {currentPokemon.description}
           </div>
         </div>
-
-        <div className="stats background">
-          <h2 className="heading2">Base Stats</h2>
+        <h2 className="heading2">Base Stats</h2>
+        <div className="stat-list background">
           {currentPokemon.stats.map((stat, id) => (
             <div key={id} className="stat">
-              {stat.name}: {stat.baseStat}
+              <div className="stat-name">{stat.name}</div>
+              <div className="stat-value"> {stat.baseStat}</div>
             </div>
           ))}
         </div>

@@ -54,6 +54,23 @@
     }
   }
 
+  .stat {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    &-name {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+    }
+    &-value {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+    }
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
+  }
   ////////////////types
   .types-container {
     display: flex;

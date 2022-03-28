@@ -202,7 +202,10 @@ export async function getCurrentPokemon(id) {
     baseStat: stat.base_stat,
     name: stat.stat.name,
   }));
-  let pokdexDesciption = data1.flavor_text_entries[0].flavor_text;
+  //let pokdexDesciption = data1.flavor_text_entries[0].flavor_text;
+  let pokdexDesciption = data1.flavor_text_entries.filter(
+    (entry) => entry.language.name === "en"
+  );
 
   return {
     sprites: [
@@ -217,7 +220,7 @@ export async function getCurrentPokemon(id) {
     name: data.name,
     abilities: abilitiesArray,
     stats: statsArray,
-    description: pokdexDesciption,
+    description: pokdexDesciption[0].flavor_text,
     id: id,
     evolutionChain: data1.evolution_chain.url,
   };
