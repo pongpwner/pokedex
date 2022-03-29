@@ -24,7 +24,7 @@ const EvolutionChain = ({ evolutionChain }) => {
           {evolutionChain.evolvesTo.length > 0
             ? evolutionChain.evolvesTo.map((pokemon) => {
                 return (
-                  <div className="stage2 seperate-2">
+                  <div className="stage2 seperate2">
                     <div className="stage2 sprite">
                       <img src={pokemon.sprite} alt="pokemon" />
                     </div>
@@ -36,7 +36,7 @@ const EvolutionChain = ({ evolutionChain }) => {
                         ? pokemon.evolvesTo.map((pokemon) => {
                             //console.log(pokemon);
                             return (
-                              <div className="stage3 seperate-3">
+                              <div className="stage3 seperate3">
                                 <div className="stage3 sprite">
                                   <img src={pokemon.sprite} alt="pokemon" />
                                 </div>

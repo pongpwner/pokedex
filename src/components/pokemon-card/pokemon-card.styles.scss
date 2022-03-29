@@ -54,6 +54,15 @@
     justify-content: center;
     gap: 2rem;
   }
+  .type {
+    width: 3.5rem;
+    height: 3.5rem;
+    // background-position: center;
+    // border-radius: 50%;
+    // box-shadow: 0 0px 10px black;
+    // background-size: cover;
+    // background-color: rgb(117, 117, 117);
+  }
   .name {
     margin-top: 85%;
     margin-bottom: 10%;
@@ -103,7 +112,6 @@
       font-size: 2.5rem;
     }
     .heading2 {
-      margin-top: 1rem;
       font-size: 2rem;
     }
 
@@ -140,11 +148,6 @@
         content: ",";
       }
     }
-  }
-
-  .type {
-    height: 3.5rem;
-    width: 3.5rem;
   }
 
   ////////////modal styles

@@ -2,6 +2,14 @@
   max-width: 100%;
   .down-arrow {
     text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    @media only screen and (min-width: 800px) {
+      transform: rotate(-90deg);
+      width: 40px;
+      height: 40px;
+      align-self: center;
+    }
   }
   .stage1-container {
     display: flex;
@@ -17,15 +25,53 @@
     text-align: center;
   }
   .stage1-container,
-  .stage2container,
-  .stage3container {
+  .stage2-container,
+  .stage3-container {
     width: 100%;
+  }
+  .stage2-container,
+  .stage3-container {
+    @media only screen and (min-width: 800px) {
+      width: 33%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .seperate2 {
+    @media only screen and (min-width: 800px) {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .seperate3 {
+    @media only screen and (min-width: 800px) {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .sprite {
     margin: 0 auto;
+    @media only screen and (min-width: 800px) {
+      margin: unset;
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+  .stage1.sprite {
+    @media only screen and (min-width: 800px) {
+      display: flex;
+    }
   }
   .seperate1 {
     margin: 0 auto;
+    @media only screen and (min-width: 800px) {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

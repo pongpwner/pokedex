@@ -3,11 +3,18 @@
   display: flex;
   width: $mobile-content-width;
   margin: 2rem auto 0;
+  @media only screen and (min-width: 800px) {
+    grid-column: 1/2;
+    grid-row: 1/9;
+    width: 100%;
+  }
   .image-container {
     width: 100%;
-    background-color: lightgray;
+    background-color: transparent;
     border-radius: 20px;
     position: relative;
+    display: flex;
+    justify-content: center;
     .left,
     .right {
       position: absolute;
@@ -28,8 +35,12 @@
     // &:hover .pokemon-sprite {
     //   transform: scale(1.5);
     // }
+
     .pokemon-sprite {
+      max-width: 250px;
       width: 100%;
+      margin: 0 auto;
+
       //transition: all 1s;
     }
   }

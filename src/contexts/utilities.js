@@ -1,3 +1,10 @@
+export async function getPokemonList() {
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=300").then(
+    (response) => response.json()
+  );
+
+  return data.results;
+}
 export async function getPokemonDescription(id) {
   const data = await fetch(
     `https://pokeapi.co/api/v2/pokemon-species/${id}`
@@ -79,53 +86,8 @@ export async function getEvolutionChain(url) {
     // console.log(chain);
     return chain;
   }
-
-  //evolution stage1
-  // let stage2;
-  // let stage3;
-  // let stage4;
-  // if (evoChain.chain.evolves_to.length === 0) {
-  //   return chain;
-  // }
-  // //evolution stage2
-  // if (evoChain.chain.evolves_to.length > 0) {
-  //   chain.evolvesTo = evoChain.chain.evolves_to.map((evo) => ({
-  //     stage: "two",
-  //     name: evo.species.name,
-  //     url: evo.species.url,
-  //     evolvesTo: [],
-  //   }));
-  //evoChain.evolves_to.forEach((pokemon) => {});
-
-  //evolution stage3
-  // if (evoChain.chain.evolves_to[0].evolves_to.length > 0) {
-  //   stage3 = evoChain.chain.evolves_to[0].evolves_to.map((evo) => ({
-  //     name: evo.species.name,
-  //     url: evo.species.url,
-  //   }));
-  //   chain.push(stage3);
-  //   //evolution stage4
-  //   if (evoChain.chain.evolves_to[0].evolves_to[0].evolves_to.length > 0) {
-  //     stage4 = evoChain.chain.evolves_to.map((evo) => ({
-  //       name: evo.species.name,
-  //       url: evo.species.url,
-  //     }));
-  //     chain.push(stage4);
-  //   }
-  // }
-  // }
-  // let flatChain=evoChain.chain
-  // console.log(evoChain);
-  // return evoChain;
 }
 
-export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10").then(
-    (response) => response.json()
-  );
-
-  return data.results;
-}
 export async function getPokemonListWithInfo(pokemonList) {
   const listPokemon = await Promise.all(
     pokemonList.map((url, pokemonId) => {
@@ -158,7 +120,10 @@ export async function getPokemonListWithInfo(pokemonList) {
     let abilitiesArray = listPokemon[i].abilities.map(
       (ability) => ability.ability.name
     );
-    let description = listDescription[i].flavor_text_entries[0].flavor_text;
+
+    let description = listDescription[i].flavor_text_entries.filter(
+      (entry) => entry.language.name === "en"
+    );
     lastList.push({
       sprites: [
         listPokemon[i].sprites.front_default,
@@ -173,7 +138,7 @@ export async function getPokemonListWithInfo(pokemonList) {
       weight: listPokemon[i].weight,
       abilities: abilitiesArray,
       stats: statsArray,
-      description: description,
+      description: description[0].flavor_text,
       evolutionChain: listDescription[i].evolution_chain.url,
     });
   }

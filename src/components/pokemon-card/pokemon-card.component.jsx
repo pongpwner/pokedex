@@ -34,6 +34,25 @@ const PokemonCard = ({
   let evolutionChain = useEvolutionChain();
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
+
+  let pokemonNumber = id;
+  let currentPokemonNumber = currentPokemonID;
+  if (currentPokemonNumber.toString().length < 3) {
+    if (currentPokemonNumber.toString().length === 1) {
+      currentPokemonNumber = "0" + "0" + currentPokemonID;
+    } else {
+      currentPokemonNumber = "0" + currentPokemonID;
+    }
+  }
+
+  if (pokemonNumber.toString().length < 3) {
+    if (pokemonNumber.toString().length === 1) {
+      pokemonNumber = "0" + "0" + id;
+    } else {
+      pokemonNumber = "0" + id;
+    }
+  }
+
   function prevPokemon() {
     if (currentPokemonID === 1) {
       return;
@@ -77,7 +96,7 @@ const PokemonCard = ({
           <img className="sprite" src={sprites[0]} alt="pokemon" />
         </div>
         <h1 className="name"> {name}</h1>
-        <div className="id"> #{id}</div>
+        <div className="id"> #{pokemonNumber}</div>
         <div className="types-container">
           {types.map((type, idx) => (
             <div key={idx} className={`type ${type} `}>
@@ -128,29 +147,29 @@ const PokemonCard = ({
           e.stopPropagation();
         }}
       >
-        <div className="container-flex-column background align-center">
+        <div className="container-flex-column background align-center pokemon-info-grid">
           <div className="navi">
             <button
               type="button"
-              className="next-button"
+              className="next-button nav-button"
               onClick={(e) => {
                 prevPokemon();
                 e.stopPropagation();
               }}
             >
-              Prev
+              &lt;
             </button>
 
-            <div className="id"> #{currentPokemon.id}</div>
+            <div className="id"> #{currentPokemonNumber}</div>
             <button
               type="button"
-              className="prev-button"
+              className="prev-button nav-button"
               onClick={(e) => {
                 nextPokemon();
                 e.stopPropagation();
               }}
             >
-              Next
+              &gt;
             </button>
           </div>
           <h1 className="name"> {currentPokemon.name}</h1>
@@ -170,14 +189,14 @@ const PokemonCard = ({
             <div className="height">height: {currentPokemon.height * 10}cm</div>
           </div>
         </div>
-        <h2 className="heading2">Description</h2>
-        <div className="background">
+        <h2 className="heading2 description-grid">Description</h2>
+        <div className="background description-grid">
           <div className="pokemon-description">
             {currentPokemon.description}
           </div>
         </div>
-        <h2 className="heading2">Base Stats</h2>
-        <div className="stat-list background">
+        <h2 className="heading2 stat-grid">Base Stats</h2>
+        <div className="stat-list background stat-grid">
           {currentPokemon.stats.map((stat, id) => (
             <div key={id} className="stat">
               <div className="stat-name">{stat.name}</div>
@@ -185,8 +204,8 @@ const PokemonCard = ({
             </div>
           ))}
         </div>
-        <h2 className="heading2">Abilities</h2>
-        <div className="abilities background ">
+        <h2 className="heading2 ability-grid">Abilities</h2>
+        <div className="abilities background ability-grid ">
           <div className="abilities-list">
             {currentPokemon.abilities.map((ability, id) => (
               <div key={id} className="ability">
@@ -195,8 +214,8 @@ const PokemonCard = ({
             ))}
           </div>
         </div>
-        <h2 className="heading2">Evolution</h2>
-        <div className="background">
+        <h2 className="heading2 evolution-grid">Evolution</h2>
+        <div className="background evolution-grid">
           <EvolutionChain evolutionChain={evolutionChain} />
         </div>
       </Modal>
