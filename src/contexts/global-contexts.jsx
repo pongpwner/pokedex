@@ -104,7 +104,6 @@ export const GlobalContextProvider = ({ children }) => {
   useEffect(() => {
     if (currentPokemon) {
       async function getData() {
-        //console.log(currentPokemon);
         const evolutionChain = await getEvolutionChain(
           currentPokemon.evolutionChain
         );

@@ -1,5 +1,6 @@
+//fetches pokemon list with name and url for more info
 export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=300").then(
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=898").then(
     (response) => response.json()
   );
 
@@ -10,7 +11,6 @@ export async function getPokemonDescription(id) {
     `https://pokeapi.co/api/v2/pokemon-species/${id}`
   ).then((response) => response.json());
 
-  //console.log(data);
   return data.flavor_text_entries[0].flavor_text;
 }
 
@@ -32,7 +32,7 @@ export async function getEvolutionChain(url) {
     sprite: sprite,
     evolvesTo: [],
   };
-  //console.log(stage2);
+
   if (stage2.length > 0) {
     chain.evolvesTo = await Promise.all(
       stage2.map(async (pokemon) => {
@@ -49,9 +49,7 @@ export async function getEvolutionChain(url) {
               let sprite1 = await fetch(
                 pokemon.species.url.replace("-species", "")
               ).then((res) => res.json());
-              //console.log(pokemon.species.name);
-              //console.log(pokemon.species.url);
-              //console.log(sprite1);
+
               if (pokemon.evolves_to.length === 0) {
                 return {
                   name: pokemon.species.name,
@@ -83,18 +81,18 @@ export async function getEvolutionChain(url) {
         };
       })
     );
-    // console.log(chain);
+
     return chain;
   }
 }
 
+//iterates through list of all pokemon and fetches information and combines relevant information into an array of objects
 export async function getPokemonListWithInfo(pokemonList) {
   const listPokemon = await Promise.all(
     pokemonList.map((url, pokemonId) => {
       let pokemonData = fetch(url)
         .then((res) => res.json())
         .catch((err) => console.log(err));
-      //let pokedexDescription = getPokemonDescription(pokemonId + 1);
 
       return pokemonData;
     })
@@ -107,8 +105,7 @@ export async function getPokemonListWithInfo(pokemonList) {
       return pokemonData;
     })
   );
-  //console.log(listPokemon);
-  //console.log(listDescription);
+
   let lastList = [];
 
   for (let i = 0; i < listPokemon.length; i++) {
@@ -142,17 +139,11 @@ export async function getPokemonListWithInfo(pokemonList) {
       evolutionChain: listDescription[i].evolution_chain.url,
     });
   }
-  //console.log(lastList);
+
   return lastList;
 }
 
-// export async function getCurrentPokemon(id) {
-//   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
-//     (response) => response.json()
-//   );
-//   console.log(data);
-//   return data;
-// }
+//gets current pokemon with relevant information
 export async function getCurrentPokemon(id) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
     (response) => response.json()
@@ -167,7 +158,7 @@ export async function getCurrentPokemon(id) {
     baseStat: stat.base_stat,
     name: stat.stat.name,
   }));
-  //let pokdexDesciption = data1.flavor_text_entries[0].flavor_text;
+
   let pokdexDesciption = data1.flavor_text_entries.filter(
     (entry) => entry.language.name === "en"
   );

@@ -3,4 +3,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  &-text {
+    font-size: 2rem;
+  }
+  &-image {
+    width: 40px;
+  }
 }

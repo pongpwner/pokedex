@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./pokemon-card.styles.scss";
 import EvolutionChain from "../evolution-chain/evolution-chain.component";
 import SpriteContainer from "../sprite-container/sprite-container.component";
@@ -7,7 +6,6 @@ import Modal from "../modal/modal.component";
 import { typeColorGradient } from "./pokemon-card.utils";
 import {
   useCurrentPokemonId,
-  useUpdateCurrentPokemonId,
   useEvolutionChain,
   useUpdateEvolutionChain,
   useCurrentPokemon,
@@ -29,12 +27,13 @@ const PokemonCard = ({
   let gradientColor1 = gradientColors[0];
   let gradientColor2 = gradientColors[1];
   let currentPokemonID = useCurrentPokemonId();
-  let changeId = useUpdateCurrentPokemonId();
+
   let setEvolutionChain = useUpdateEvolutionChain();
   let evolutionChain = useEvolutionChain();
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
 
+  //appending 0's in front of id for display purposes
   let pokemonNumber = id;
   let currentPokemonNumber = currentPokemonID;
   if (currentPokemonNumber.toString().length < 3) {
@@ -59,7 +58,6 @@ const PokemonCard = ({
     }
     selectPokemonId((prev) => prev - 1);
     console.log(currentPokemonID);
-    //changeId(-1);
   }
   const nextPokemon = () => {
     if (currentPokemonID === 151) {
@@ -67,21 +65,13 @@ const PokemonCard = ({
     }
     selectPokemonId((prev) => prev + 1);
     console.log(currentPokemonID);
-    //changeId(1);
   };
   function openModal() {
     if (currentPokemonID !== id) {
       selectPokemonId(id);
-      //getData();
-      // console.log(currentPokemon);
       setEvolutionChain(currentPokemon.evolution_chain);
-      //console.log(evolutionChain);
       setIsModalOpen(true);
     }
-    //console.log(currentPokemonID);
-    // async function getData() {
-    //   await selectPokemonId(id);
-    // }
   }
   return (
     <div className={`pokemon-card `} onClick={openModal}>

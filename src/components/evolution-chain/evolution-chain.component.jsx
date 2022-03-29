@@ -5,13 +5,7 @@ const EvolutionChain = ({ evolutionChain }) => {
   if (!evolutionChain) {
     return null;
   }
-  //   let stage1 = <div className="stage1">{evolutionChain.name}</div>;
-  //   let stage = 2;
-  //   if (evolutionChain.evolves_to.length > 0) {
-  //     let st;
-  //   }
-  //   let finalRender;
-  //console.log(evolutionChain);
+
   let stage1 = (
     <div className="stage1-container">
       <div className="stage1 seperate1">

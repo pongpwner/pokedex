@@ -7,7 +7,7 @@ const Modal = ({ children, isOpen, closeModal, currentPokemon }) => {
   if (!isOpen) {
     return null;
   }
-  //let currentPokemon = useCurrentPokemon();
+
   let gradientColors = typeColorGradient(currentPokemon.types);
   let gradientColor1 = gradientColors[0];
   let gradientColor2 = gradientColors[1];
