@@ -86,7 +86,7 @@ const ShowAll = () => {
   function filterByType() {
     console.log(filterValue);
     if (filterValue === "all") {
-      setDisplayList(pokemonList);
+      setFilterList(pokemonList);
       return;
     }
 
