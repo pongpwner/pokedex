@@ -13,13 +13,35 @@ const ShowAll = () => {
     "alphabetical(asc)",
     "alphabetical(des)",
   ];
-  const filterByList = ["region", "type"];
+  const filterByTypeList = [
+    "all",
+    "normal",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "ice",
+    "fighting",
+    "poison",
+    "ground",
+    "flying",
+    "psychic",
+    "bug",
+    "rock",
+    "ghost",
+    "dark",
+    "dragon",
+    "steel",
+    "fairy",
+  ];
+
   const [displayList, setDisplayList] = useState(null);
-  const [value, setValue] = useState(0); // integer state
-  //return () => setValue(value => value + 1); // update the state to force render
-  const [sortValue, setSortValue] = useState("number");
+  const [sortList, setSortList] = useState(null);
+  const [filterList, setFilterList] = useState(null);
+  const [sortValue, setSortValue] = useState("number(asc)");
+  const [filterValue, setFilterValue] = useState("all");
   function sortAplhabeticalAsc() {
-    let pkList = [...pokemonList];
+    let pkList = [...filterList];
     const sortedList = pkList.sort(function (a, b) {
       var textA = a.name.toUpperCase();
       var textB = b.name.toUpperCase();
@@ -27,11 +49,12 @@ const ShowAll = () => {
     });
     console.log(sortedList);
     setDisplayList(sortedList);
+    setSortList(sortedList);
     console.log(displayList);
   }
 
   function sortAplhabeticalDes() {
-    let pkList = [...pokemonList];
+    let pkList = [...filterList];
     const sortedList = pkList.sort(function (a, b) {
       var textA = a.name.toUpperCase();
       var textB = b.name.toUpperCase();
@@ -39,38 +62,56 @@ const ShowAll = () => {
     });
     console.log(sortedList);
     setDisplayList(sortedList);
+    setSortList(sortedList);
     console.log(displayList);
   }
   function sortNumericalAsc() {
-    let pkList = [...pokemonList];
+    let pkList = [...filterList];
     let sortedList = pkList.sort(function (a, b) {
       return a.id - b.id;
     });
     setDisplayList(sortedList);
+    setSortList(sortedList);
     console.log(displayList);
   }
   function sortNumericalDes() {
-    let pkList = [...pokemonList];
+    let pkList = [...filterList];
     let sortedList = pkList.sort(function (a, b) {
       return b.id - a.id;
     });
     setDisplayList(sortedList);
+    setSortList(sortedList);
     console.log(displayList);
+  }
+  function filterByType() {
+    console.log(filterValue);
+    if (filterValue === "all") {
+      setDisplayList(pokemonList);
+      return;
+    }
+
+    let pkList = [...pokemonList];
+    let filteredList = pkList.filter((pokemon) => {
+      return pokemon.types.includes(filterValue);
+    });
+    setFilterList(filteredList);
   }
   useEffect(() => {
     console.log(pokemonList);
     if (pokemonList) {
-      setDisplayList(pokemonList);
+      let pkList = [...pokemonList];
+      setDisplayList(pkList);
+      //setSortList(pkList);
+      setFilterList(pkList);
     }
   }, [pokemonList]);
   useEffect(() => {
     console.log(displayList);
-    return () => setValue((value) => value + 1); // update the state to force render
   }, [displayList]);
 
   //sort list
   useEffect(() => {
-    if (pokemonList) {
+    if (filterList) {
       console.log(sortValue);
       switch (sortValue) {
         case "alphabetical(asc)":
@@ -90,7 +131,35 @@ const ShowAll = () => {
           return;
       }
     }
-  }, [sortValue, pokemonList]);
+  }, [sortValue]);
+  useEffect(() => {
+    if (pokemonList) {
+      filterByType();
+    }
+  }, [filterValue]);
+  useEffect(() => {
+    if (!filterList) {
+      return;
+    }
+    console.log("change");
+    switch (sortValue) {
+      case "alphabetical(asc)":
+        sortAplhabeticalAsc();
+        return;
+      case "alphabetical(des)":
+        sortAplhabeticalDes();
+        return;
+
+      case "number(asc)":
+        sortNumericalAsc();
+        return;
+      case "number(des)":
+        sortNumericalDes();
+        return;
+      default:
+        return;
+    }
+  }, [filterList]);
   return displayList ? (
     <div className="show-all">
       <div className="dropdown-section">
@@ -101,9 +170,10 @@ const ShowAll = () => {
           onChange={setSortValue}
         />
         <CustomDropdown
-          label="filter by"
-          list={filterByList}
+          label="filter by type"
+          list={filterByTypeList}
           listname="filter"
+          onChange={setFilterValue}
         />
       </div>
       <div className="pokemon-list">
