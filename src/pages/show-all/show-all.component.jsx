@@ -34,14 +34,37 @@ const ShowAll = () => {
     "steel",
     "fairy",
   ];
+  const filterByTypeList2 = [
+    "none",
+    "normal",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "ice",
+    "fighting",
+    "poison",
+    "ground",
+    "flying",
+    "psychic",
+    "bug",
+    "rock",
+    "ghost",
+    "dark",
+    "dragon",
+    "steel",
+    "fairy",
+  ];
 
   const [displayList, setDisplayList] = useState(null);
-  const [sortList, setSortList] = useState(null);
+
   const [filterList, setFilterList] = useState(null);
+  const [filterList2, setFilterList2] = useState(null);
   const [sortValue, setSortValue] = useState("number(asc)");
   const [filterValue, setFilterValue] = useState("all");
+  const [filterValue2, setFilterValue2] = useState("none");
   function sortAplhabeticalAsc() {
-    let pkList = [...filterList];
+    let pkList = [...filterList2];
     const sortedList = pkList.sort(function (a, b) {
       var textA = a.name.toUpperCase();
       var textB = b.name.toUpperCase();
@@ -49,12 +72,12 @@ const ShowAll = () => {
     });
     console.log(sortedList);
     setDisplayList(sortedList);
-    setSortList(sortedList);
+
     console.log(displayList);
   }
 
   function sortAplhabeticalDes() {
-    let pkList = [...filterList];
+    let pkList = [...filterList2];
     const sortedList = pkList.sort(function (a, b) {
       var textA = a.name.toUpperCase();
       var textB = b.name.toUpperCase();
@@ -62,25 +85,25 @@ const ShowAll = () => {
     });
     console.log(sortedList);
     setDisplayList(sortedList);
-    setSortList(sortedList);
+
     console.log(displayList);
   }
   function sortNumericalAsc() {
-    let pkList = [...filterList];
+    let pkList = [...filterList2];
     let sortedList = pkList.sort(function (a, b) {
       return a.id - b.id;
     });
     setDisplayList(sortedList);
-    setSortList(sortedList);
-    console.log(displayList);
+
+    console.log(sortedList);
   }
   function sortNumericalDes() {
-    let pkList = [...filterList];
+    let pkList = [...filterList2];
     let sortedList = pkList.sort(function (a, b) {
       return b.id - a.id;
     });
     setDisplayList(sortedList);
-    setSortList(sortedList);
+
     console.log(displayList);
   }
   function filterByType() {
@@ -89,12 +112,28 @@ const ShowAll = () => {
       setFilterList(pokemonList);
       return;
     }
-
+    // if (filterValue2 === "none") {
+    //   setFilterList(pokemonList);
+    // }
+    setFilterList(pokemonList);
+    console.log(pokemonList);
     let pkList = [...pokemonList];
     let filteredList = pkList.filter((pokemon) => {
       return pokemon.types.includes(filterValue);
     });
+    console.log("filteredList" + filteredList);
     setFilterList(filteredList);
+  }
+  function filterByType2() {
+    if (filterValue2 !== "none") {
+      console.log("filter2");
+      let pkList = [...filterList];
+      let filteredList = pkList.filter((pokemon) => {
+        return pokemon.types.includes(filterValue2);
+      });
+      console.log(filteredList);
+      setFilterList2(filteredList);
+    }
   }
   useEffect(() => {
     console.log(pokemonList);
@@ -136,9 +175,16 @@ const ShowAll = () => {
     if (pokemonList) {
       filterByType();
     }
-  }, [filterValue]);
+  }, [filterValue, filterValue2]);
   useEffect(() => {
-    if (!filterList) {
+    if (filterValue2 === "none") {
+      setFilterList2(filterList);
+      return;
+    }
+    filterByType2();
+  }, [filterList]);
+  useEffect(() => {
+    if (!filterList2) {
       return;
     }
     console.log("change");
@@ -159,7 +205,7 @@ const ShowAll = () => {
       default:
         return;
     }
-  }, [filterList]);
+  }, [filterList2]);
   return displayList ? (
     <div className="show-all">
       <div className="dropdown-section">
@@ -174,6 +220,12 @@ const ShowAll = () => {
           list={filterByTypeList}
           listname="filter"
           onChange={setFilterValue}
+        />
+        <CustomDropdown
+          label="filter by type"
+          list={filterByTypeList2}
+          listname="filter2"
+          onChange={setFilterValue2}
         />
       </div>
       <div className="pokemon-list">
