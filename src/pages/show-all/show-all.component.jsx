@@ -6,6 +6,7 @@ import { usePokemonListWithInfo } from "../../contexts/global-contexts";
 import CustomDropdown from "../../components/custom-dropdown/custom-dropdown.component";
 
 const ShowAll = () => {
+  //list of all pokemon
   let pokemonList = usePokemonListWithInfo();
   const sortByList = [
     "number(asc)",
@@ -55,14 +56,19 @@ const ShowAll = () => {
     "steel",
     "fairy",
   ];
-
+  //list that is rendered by dom
   const [displayList, setDisplayList] = useState(null);
 
+  //used for filter calculations
   const [filterList, setFilterList] = useState(null);
   const [filterList2, setFilterList2] = useState(null);
+
+  //values of the select inputs
   const [sortValue, setSortValue] = useState("number(asc)");
   const [filterValue, setFilterValue] = useState("all");
   const [filterValue2, setFilterValue2] = useState("none");
+
+  //functions for sorting pokemon
   function sortAplhabeticalAsc() {
     let pkList = [...filterList2];
     const sortedList = pkList.sort(function (a, b) {
@@ -70,10 +76,8 @@ const ShowAll = () => {
       var textB = b.name.toUpperCase();
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
-    console.log(sortedList);
-    setDisplayList(sortedList);
 
-    console.log(displayList);
+    setDisplayList(sortedList);
   }
 
   function sortAplhabeticalDes() {
@@ -83,10 +87,8 @@ const ShowAll = () => {
       var textB = b.name.toUpperCase();
       return textA < textB ? 1 : textA > textB ? -1 : 0;
     });
-    console.log(sortedList);
-    setDisplayList(sortedList);
 
-    console.log(displayList);
+    setDisplayList(sortedList);
   }
   function sortNumericalAsc() {
     let pkList = [...filterList2];
@@ -94,8 +96,6 @@ const ShowAll = () => {
       return a.id - b.id;
     });
     setDisplayList(sortedList);
-
-    console.log(sortedList);
   }
   function sortNumericalDes() {
     let pkList = [...filterList2];
@@ -103,27 +103,27 @@ const ShowAll = () => {
       return b.id - a.id;
     });
     setDisplayList(sortedList);
-
-    console.log(displayList);
   }
+
+  //filters first type
   function filterByType() {
-    console.log(filterValue);
     if (filterValue === "all") {
+      //sets to original list of pokemon if all types are selected
       setFilterList(pokemonList);
       return;
     }
-    // if (filterValue2 === "none") {
-    //   setFilterList(pokemonList);
-    // }
+    //reset filter
     setFilterList(pokemonList);
-    console.log(pokemonList);
+
     let pkList = [...pokemonList];
     let filteredList = pkList.filter((pokemon) => {
       return pokemon.types.includes(filterValue);
     });
-    console.log("filteredList" + filteredList);
+
     setFilterList(filteredList);
   }
+
+  //filters 2nd type
   function filterByType2() {
     if (filterValue2 !== "none") {
       console.log("filter2");
@@ -171,23 +171,30 @@ const ShowAll = () => {
       }
     }
   }, [sortValue]);
+
+  //calls filter function when the select tyoe filters are changed
   useEffect(() => {
     if (pokemonList) {
       filterByType();
     }
   }, [filterValue, filterValue2]);
+
+  //called when the first select tag is changed
   useEffect(() => {
     if (filterValue2 === "none") {
+      //if second type tag is none, set next filter equal to the current one
       setFilterList2(filterList);
       return;
     }
     filterByType2();
   }, [filterList]);
+
+  //called by method above, filters 2nd type select, the applies the  selected sort
   useEffect(() => {
     if (!filterList2) {
       return;
     }
-    console.log("change");
+    //apply the selected sort after both filters have been applied
     switch (sortValue) {
       case "alphabetical(asc)":
         sortAplhabeticalAsc();
