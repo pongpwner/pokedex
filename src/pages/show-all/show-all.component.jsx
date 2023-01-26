@@ -125,6 +125,9 @@ const ShowAll = () => {
 
   //filters 2nd type
   function filterByType2() {
+    if (filterValue === "all") {
+      return setFilterList2(filterList);
+    }
     if (filterValue2 !== "none") {
       console.log("filter2");
       let pkList = [...filterList];

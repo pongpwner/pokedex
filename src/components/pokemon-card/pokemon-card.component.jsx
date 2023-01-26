@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./pokemon-card.styles.scss";
 import EvolutionChain from "../evolution-chain/evolution-chain.component";
 import SpriteContainer from "../sprite-container/sprite-container.component";
