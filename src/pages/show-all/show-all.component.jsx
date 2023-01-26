@@ -4,7 +4,7 @@ import PokemonCard from "../../components/pokemon-card/pokemon-card.component";
 import Loading from "../../components/loading/loading.component";
 import { usePokemonListWithInfo } from "../../contexts/global-contexts";
 import CustomDropdown from "../../components/custom-dropdown/custom-dropdown.component";
-
+import SearchBar from "../../components/search-bar/search-bar.component";
 const ShowAll = () => {
   //list of all pokemon
   let pokemonList = usePokemonListWithInfo();
@@ -56,17 +56,21 @@ const ShowAll = () => {
     "steel",
     "fairy",
   ];
+
   //list that is rendered by dom
   const [displayList, setDisplayList] = useState(null);
 
   //used for filter calculations
   const [filterList, setFilterList] = useState(null);
   const [filterList2, setFilterList2] = useState(null);
-
+  //searchbar, filters from filterlist2
+  const [search, setSearch] = useState("");
   //values of the select inputs
   const [sortValue, setSortValue] = useState("number(asc)");
   const [filterValue, setFilterValue] = useState("all");
   const [filterValue2, setFilterValue2] = useState("none");
+
+  const [searchFilter, setSearchFilter] = useState("");
 
   //functions for sorting pokemon
   function sortAplhabeticalAsc() {
@@ -138,6 +142,22 @@ const ShowAll = () => {
       setFilterList2(filteredList);
     }
   }
+  function searchPokemon() {
+    console.log(search);
+    if (search === "") {
+      setSearchFilter(filterList2);
+    }
+    let searchList = filterList2.filter((pokemon) =>
+      pokemon.name.includes(search)
+    );
+    console.log(searchList);
+    setSearchFilter(searchList);
+  }
+
+  // if (pokemon.name.includes(search)) {
+  //   return pokemon;
+  // }
+  // return false;
   useEffect(() => {
     console.log(pokemonList);
     if (pokemonList) {
@@ -216,6 +236,18 @@ const ShowAll = () => {
         return;
     }
   }, [filterList2]);
+
+  useEffect(() => {
+    if (search === "") {
+      setDisplayList(filterList2);
+    }
+    if (filterList2 && search !== "") {
+      searchPokemon();
+    }
+  }, [filterList2, search]);
+  useEffect(() => {
+    setDisplayList(searchFilter);
+  }, [searchFilter]);
   return displayList ? (
     <div className="show-all">
       <div className="dropdown-section">
@@ -237,6 +269,7 @@ const ShowAll = () => {
           listname="filter2"
           onChange={setFilterValue2}
         />
+        <SearchBar search={search} setSearch={setSearch}></SearchBar>
       </div>
       <div className="pokemon-list">
         {displayList
