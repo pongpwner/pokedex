@@ -10,6 +10,7 @@ import {
   useUpdateEvolutionChain,
   useCurrentPokemon,
   useSelectCurrentPokemonId,
+  useUpdateCurrentPokemon,
 } from "../../contexts/global-contexts";
 const PokemonCard = ({
   name,
@@ -33,7 +34,37 @@ const PokemonCard = ({
   let evolutionChain = useEvolutionChain();
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
+  let setCurrentPokemon = useUpdateCurrentPokemon();
 
+  function closeModal(e) {
+    //reset current pokemon to null to prevent visual lag
+    console.log("closesesame");
+    console.log(currentPokemonID);
+
+    console.log(currentPokemon);
+    setIsModalOpen(false);
+
+    setCurrentPokemon(null);
+    selectPokemonId(null);
+    setEvolutionChain(null);
+
+    e.stopPropagation();
+  }
+  function openModal() {
+    console.log("open sesame");
+    console.log(currentPokemonID);
+
+    console.log(currentPokemon);
+    // if (currentPokemonID !== id) {
+    selectPokemonId(id);
+    //await setCurrentPokemon(id);
+
+    if (currentPokemon) {
+      setEvolutionChain(currentPokemon.evolution_chain);
+    }
+    setIsModalOpen(true);
+    // }
+  }
   //appending 0's in front of id for display purposes
   let pokemonNumber = id;
   let currentPokemonNumber = currentPokemonID ? currentPokemonID : "";
@@ -76,16 +107,7 @@ const PokemonCard = ({
     }, 1000);
     console.log(currentPokemonID);
   };
-  function openModal() {
-    console.log("open sesame");
-    if (currentPokemonID !== id) {
-      selectPokemonId(id);
-      if (currentPokemon) {
-        setEvolutionChain(currentPokemon.evolution_chain);
-      }
-      setIsModalOpen(true);
-    }
-  }
+
   return (
     <>
       <div className={`pokemon-card `} onClick={openModal}>
@@ -146,10 +168,7 @@ const PokemonCard = ({
       <Modal
         currentPokemon={currentPokemon}
         isOpen={isModalOpen}
-        closeModal={(e) => {
-          setIsModalOpen(false);
-          e.stopPropagation();
-        }}
+        closeModal={closeModal}
       >
         <div className="container-flex-column background align-center pokemon-info-grid">
           <div className="navi">
