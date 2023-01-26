@@ -67,10 +67,11 @@
   }
   .seperate1 {
     margin: 0 auto;
+    justify-content: start;
     @media only screen and (min-width: 800px) {
       display: flex;
       width: 100%;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
     }
   }

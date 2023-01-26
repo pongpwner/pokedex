@@ -5,7 +5,7 @@ import { useCurrentPokemon } from "../../contexts/global-contexts";
 const SpriteContainer = () => {
   const currentPokemon = useCurrentPokemon();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const imageLinks = currentPokemon.sprites;
+  const imageLinks = currentPokemon ? currentPokemon.sprites : ["/"];
   function nextSprite() {
     //moves current slide index +1
     if (currentSlide === imageLinks.length - 1) {
@@ -23,7 +23,7 @@ const SpriteContainer = () => {
       setCurrentSlide((prev) => prev - 1);
     }
   }
-  return (
+  return currentPokemon ? (
     <div className="sprite-container">
       <div className="image-container">
         <button
@@ -54,7 +54,7 @@ const SpriteContainer = () => {
         )}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default SpriteContainer;

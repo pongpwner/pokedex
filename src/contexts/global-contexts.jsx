@@ -49,7 +49,7 @@ export function useUpdateCurrentPokemon() {
 //////////////////////////////////////////////////////////////////////
 export const GlobalContextProvider = ({ children }) => {
   //id retrieved from dropdown list
-  const [currentPokemonID, setCurrentPokemonID] = useState(118);
+  const [currentPokemonID, setCurrentPokemonID] = useState(null);
   function changeId(num) {
     return setCurrentPokemonID((prev) => prev + num);
   }

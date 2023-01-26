@@ -23,6 +23,7 @@ const PokemonCard = ({
   description,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   let gradientColors = typeColorGradient(types);
   let gradientColor1 = gradientColors[0];
   let gradientColor2 = gradientColors[1];
@@ -35,7 +36,7 @@ const PokemonCard = ({
 
   //appending 0's in front of id for display purposes
   let pokemonNumber = id;
-  let currentPokemonNumber = currentPokemonID;
+  let currentPokemonNumber = currentPokemonID ? currentPokemonID : "";
   if (currentPokemonNumber.toString().length < 3) {
     if (currentPokemonNumber.toString().length === 1) {
       currentPokemonNumber = "0" + "0" + currentPokemonID;
@@ -57,20 +58,31 @@ const PokemonCard = ({
       return;
     }
     selectPokemonId((prev) => prev - 1);
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1000);
     console.log(currentPokemonID);
   }
   const nextPokemon = () => {
-    if (currentPokemonID === 151) {
+    if (currentPokemonID === 898) {
       return;
     }
     selectPokemonId((prev) => prev + 1);
+    setDisabled(true);
+    console.log(currentPokemon);
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1000);
     console.log(currentPokemonID);
   };
   function openModal() {
     console.log("open sesame");
     if (currentPokemonID !== id) {
       selectPokemonId(id);
-      setEvolutionChain(currentPokemon.evolution_chain);
+      if (currentPokemon) {
+        setEvolutionChain(currentPokemon.evolution_chain);
+      }
       setIsModalOpen(true);
     }
   }
@@ -144,6 +156,7 @@ const PokemonCard = ({
             <button
               type="button"
               className="next-button nav-button"
+              disabled={disabled}
               onClick={(e) => {
                 prevPokemon();
                 e.stopPropagation();
@@ -152,9 +165,12 @@ const PokemonCard = ({
               &lt;
             </button>
 
-            <div className="id"> #{currentPokemonNumber}</div>
+            <div className="id">
+              #{currentPokemonNumber ? currentPokemonNumber : ""}
+            </div>
             <button
               type="button"
+              disabled={disabled}
               className="prev-button nav-button"
               onClick={(e) => {
                 nextPokemon();
@@ -164,46 +180,56 @@ const PokemonCard = ({
               &gt;
             </button>
           </div>
-          <h1 className="name"> {currentPokemon.name}</h1>
+          <h1 className="name"> {currentPokemon ? currentPokemon.name : ""}</h1>
           <div className="sprite-container">
             <SpriteContainer />
           </div>
 
           <div className="types-container">
-            {currentPokemon.types.map((type, idx) => (
-              <div key={idx} className={`type ${type} `}>
-                &nbsp;
-              </div>
-            ))}
+            {currentPokemon
+              ? currentPokemon.types.map((type, idx) => (
+                  <div key={idx} className={`type ${type} `}>
+                    &nbsp;
+                  </div>
+                ))
+              : ""}
           </div>
           <div className="size">
-            <div className="weight">weight: {currentPokemon.weight / 10}kg</div>
-            <div className="height">height: {currentPokemon.height * 10}cm</div>
+            <div className="weight">
+              weight: {currentPokemon ? currentPokemon.weight / 10 : ""}kg
+            </div>
+            <div className="height">
+              height: {currentPokemon ? currentPokemon.height * 10 : ""}cm
+            </div>
           </div>
         </div>
         <h2 className="heading2 description-grid">Description</h2>
         <div className="background description-grid">
           <div className="pokemon-description">
-            {currentPokemon.description}
+            {currentPokemon ? currentPokemon.description : ""}
           </div>
         </div>
         <h2 className="heading2 stat-grid">Base Stats</h2>
         <div className="stat-list background stat-grid">
-          {currentPokemon.stats.map((stat, id) => (
-            <div key={id} className="stat">
-              <div className="stat-name">{stat.name}</div>
-              <div className="stat-value"> {stat.baseStat}</div>
-            </div>
-          ))}
+          {currentPokemon
+            ? currentPokemon.stats.map((stat, id) => (
+                <div key={id} className="stat">
+                  <div className="stat-name">{stat.name}</div>
+                  <div className="stat-value"> {stat.baseStat}</div>
+                </div>
+              ))
+            : ""}
         </div>
         <h2 className="heading2 ability-grid">Abilities</h2>
         <div className="abilities background ability-grid ">
           <div className="abilities-list">
-            {currentPokemon.abilities.map((ability, id) => (
-              <div key={id} className="ability">
-                {ability}
-              </div>
-            ))}
+            {currentPokemon
+              ? currentPokemon.abilities.map((ability, id) => (
+                  <div key={id} className="ability">
+                    {ability}
+                  </div>
+                ))
+              : ""}
           </div>
         </div>
         <h2 className="heading2 evolution-grid">Evolution</h2>

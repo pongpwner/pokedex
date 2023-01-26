@@ -8,7 +8,9 @@ const Modal = ({ children, isOpen, closeModal, currentPokemon }) => {
     return null;
   }
 
-  let gradientColors = typeColorGradient(currentPokemon.types);
+  let gradientColors = typeColorGradient(
+    currentPokemon ? currentPokemon.types : ["normal", "normal"]
+  );
   let gradientColor1 = gradientColors[0];
   let gradientColor2 = gradientColors[1];
   return ReactDOM.createPortal(
