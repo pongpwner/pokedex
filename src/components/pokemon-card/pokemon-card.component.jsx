@@ -67,6 +67,7 @@ const PokemonCard = ({
     console.log(currentPokemonID);
   };
   function openModal() {
+    console.log("open sesame");
     if (currentPokemonID !== id) {
       selectPokemonId(id);
       setEvolutionChain(currentPokemon.evolution_chain);
@@ -74,61 +75,62 @@ const PokemonCard = ({
     }
   }
   return (
-    <div className={`pokemon-card `} onClick={openModal}>
-      <div
-        style={{
-          background: `linear-gradient(${gradientColor1},${gradientColor2})`,
-        }}
-        className="card-side card-side-front"
-      >
-        <div className="sprite-container">
-          <div className="circle">&nbsp;</div>
-          <img className="sprite" src={sprites[0]} alt="pokemon" />
-        </div>
-        <h1 className="name"> {name}</h1>
-        <div className="id"> #{pokemonNumber}</div>
-        <div className="types-container">
-          {types.map((type, idx) => (
-            <div key={idx} className={`type ${type} `}>
-              &nbsp;
-            </div>
-          ))}
-        </div>
-      </div>
-      <div
-        style={{
-          background: `linear-gradient(${gradientColor1},${gradientColor2})`,
-        }}
-        className="card-side card-side-back"
-      >
-        <h1 className="name"> {name}</h1>
-
-        <div className="pokemon-description">{description}</div>
-        <div className="size">
-          <div className="weight">weight: {weight / 10}kg</div>
-          <div className="height">height: {height}cm</div>
-        </div>
-        <div className="stats">
-          <h2 className="heading2">Base Stats</h2>
-          {stats.map((stat, id) => (
-            <div key={id} className="stat">
-              {stat.name}: {stat.baseStat}
-            </div>
-          ))}
-        </div>
-
-        <div className="abilities ">
-          <h2 className="heading2">Abilities</h2>
-          <div className="abilities-list">
-            {abilities.map((ability, id) => (
-              <div key={id} className="ability">
-                {ability}
+    <>
+      <div className={`pokemon-card `} onClick={openModal}>
+        <div
+          style={{
+            background: `linear-gradient(${gradientColor1},${gradientColor2})`,
+          }}
+          className="card-side card-side-front"
+        >
+          <div className="sprite-container">
+            <div className="circle">&nbsp;</div>
+            <img className="sprite" src={sprites[0]} alt="pokemon" />
+          </div>
+          <h1 className="name"> {name}</h1>
+          <div className="id"> #{pokemonNumber}</div>
+          <div className="types-container">
+            {types.map((type, idx) => (
+              <div key={idx} className={`type ${type} `}>
+                &nbsp;
               </div>
             ))}
           </div>
         </div>
-      </div>
+        <div
+          style={{
+            background: `linear-gradient(${gradientColor1},${gradientColor2})`,
+          }}
+          className="card-side card-side-back"
+        >
+          <h1 className="name"> {name}</h1>
 
+          <div className="pokemon-description">{description}</div>
+          <div className="size">
+            <div className="weight">weight: {weight / 10}kg</div>
+            <div className="height">height: {height}cm</div>
+          </div>
+          <div className="stats">
+            <h2 className="heading2">Base Stats</h2>
+            {stats.map((stat, id) => (
+              <div key={id} className="stat">
+                {stat.name}: {stat.baseStat}
+              </div>
+            ))}
+          </div>
+
+          <div className="abilities ">
+            <h2 className="heading2">Abilities</h2>
+            <div className="abilities-list">
+              {abilities.map((ability, id) => (
+                <div key={id} className="ability">
+                  {ability}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
       <Modal
         currentPokemon={currentPokemon}
         isOpen={isModalOpen}
@@ -209,7 +211,7 @@ const PokemonCard = ({
           <EvolutionChain evolutionChain={evolutionChain} />
         </div>
       </Modal>
-    </div>
+    </>
   );
 };
 
