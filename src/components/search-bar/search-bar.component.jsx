@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-
 const SearchBar = ({ search, setSearch }) => {
   return (
     <div>
@@ -7,9 +5,8 @@ const SearchBar = ({ search, setSearch }) => {
         type="search"
         onChange={(e) => setSearch(e.target.value)}
         value={search}
-        placeholder="pokemon name"
+        placeholder="search pokemon"
       />
-      <button type="button">Search</button>
     </div>
   );
 };
