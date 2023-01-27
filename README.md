@@ -2,10 +2,11 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [What I Learned](#what-i-learned)
 - [Built With](#built-with)
 - [Features](#features)
 - [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+
 
 
 ## Overview
@@ -15,12 +16,14 @@ This is a Pokedex that takes data from pokeapi and displays pokemon from generat
 When hovering over a pokemon the card will flip over and you can see more details about the pokemon. 
 You can click a card to open a modal to see even more information about the pokemon.
 
+## What I Learned
+
 This project was very good practice for styling and working with an api.  I combined data from multiple api calls for each pokemon. I also learned about react context by storing the pokemon data state with context. I applied a css animation to flip the pokemon card.
 
 ## Built With
-* React
-* SASS
-* PokeAPI
+* [React](https://reactjs.org/)
+* [SASS](https://sass-lang.com/)
+* [PokeAPI](https://pokeapi.co/)
 
 ## Features
 * Filter what pokemon are displayed by their types
@@ -31,5 +34,5 @@ This project was very good practice for styling and working with an api.  I comb
 * Iterate through pokemon from the modal view
 
 ## Contact
-* [portfloio](https://pongpwner.github.io/eric-shyu-portfolio/) 
+* [portfolio](https://pongpwner.github.io/eric-shyu-portfolio/) 
 * [linkedin](https://www.linkedin.com/in/eric-shyu-105a84191/)
