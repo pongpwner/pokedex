@@ -40,11 +40,9 @@
     box-shadow: 0 1.5rem 4rem rgba(black, 0.15);
     &-front {
       transform: rotateY(0deg);
-      //transform: rotateY(-180deg);
     }
     &-back {
       transform: rotateY(180deg);
-      //transform: rotateY(0deg);
     }
   }
 
@@ -57,11 +55,6 @@
   .type {
     width: 3.5rem;
     height: 3.5rem;
-    // background-position: center;
-    // border-radius: 50%;
-    // box-shadow: 0 0px 10px black;
-    // background-size: cover;
-    // background-color: rgb(117, 117, 117);
   }
   .name {
     margin-top: 85%;
@@ -72,7 +65,7 @@
     padding: 0.25rem 0.5rem;
     font-size: 2.5rem;
     border-radius: 10px;
-    //background-color: rgba(167, 161, 161, 0.5);
+
     font-weight: 500;
     position: absolute;
     top: 0.5rem;

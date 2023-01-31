@@ -38,32 +38,18 @@ const PokemonCard = ({
 
   function closeModal(e) {
     //reset current pokemon to null to prevent visual lag
-    console.log("closesesame");
-    console.log(currentPokemonID);
-
-    console.log(currentPokemon);
     setIsModalOpen(false);
-
     setCurrentPokemon(null);
     selectPokemonId(null);
     setEvolutionChain(null);
-
     e.stopPropagation();
   }
   function openModal() {
-    console.log("open sesame");
-    console.log(currentPokemonID);
-
-    console.log(currentPokemon);
-    // if (currentPokemonID !== id) {
     selectPokemonId(id);
-    //await setCurrentPokemon(id);
-
     if (currentPokemon) {
       setEvolutionChain(currentPokemon.evolution_chain);
     }
     setIsModalOpen(true);
-    // }
   }
   //appending 0's in front of id for display purposes
   let pokemonNumber = id;
@@ -83,7 +69,7 @@ const PokemonCard = ({
       pokemonNumber = "0" + id;
     }
   }
-
+  //iterate through pokemon on modal
   function prevPokemon() {
     if (currentPokemonID === 1) {
       return;
@@ -93,7 +79,6 @@ const PokemonCard = ({
     setTimeout(() => {
       setDisabled(false);
     }, 1000);
-    console.log(currentPokemonID);
   }
   const nextPokemon = () => {
     if (currentPokemonID === 898) {
@@ -101,11 +86,10 @@ const PokemonCard = ({
     }
     selectPokemonId((prev) => prev + 1);
     setDisabled(true);
-    console.log(currentPokemon);
+
     setTimeout(() => {
       setDisabled(false);
     }, 1000);
-    console.log(currentPokemonID);
   };
 
   return (
@@ -170,7 +154,7 @@ const PokemonCard = ({
         isOpen={isModalOpen}
         closeModal={closeModal}
       >
-        <div className="container-flex-column background align-center pokemon-info-grid">
+        <div className="container-flex-column background align-center pokemon-info-grid ">
           <div className="navi">
             <button
               type="button"
