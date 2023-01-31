@@ -269,6 +269,7 @@ const ShowAll = () => {
         />
         <SearchBar search={search} setSearch={setSearch}></SearchBar>
       </div>
+
       <div className="pokemon-list">
         {displayList
           ? displayList.map((pokemon) => (
