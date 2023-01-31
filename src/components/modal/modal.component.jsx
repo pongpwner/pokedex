@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./modal.styles.scss";
-import { useCurrentPokemon } from "../../contexts/global-contexts";
+
 import { typeColorGradient } from "../pokemon-card/pokemon-card.utils";
 const Modal = ({ children, isOpen, closeModal, currentPokemon }) => {
   if (!isOpen) {

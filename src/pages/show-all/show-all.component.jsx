@@ -132,49 +132,47 @@ const ShowAll = () => {
     if (filterValue === "all") {
       return setFilterList2(filterList);
     }
+    if (filterValue === filterValue2) {
+      let pkList = [...filterList];
+      let filteredList = pkList.filter((pokemon) => {
+        return pokemon.types.length === 1;
+      });
+
+      return setFilterList2(filteredList);
+    }
     if (filterValue2 !== "none") {
-      console.log("filter2");
       let pkList = [...filterList];
       let filteredList = pkList.filter((pokemon) => {
         return pokemon.types.includes(filterValue2);
       });
-      console.log(filteredList);
-      setFilterList2(filteredList);
+
+      return setFilterList2(filteredList);
     }
   }
   function searchPokemon() {
-    console.log(search);
     if (search === "") {
       setSearchFilter(filterList2);
     }
     let searchList = filterList2.filter((pokemon) =>
       pokemon.name.includes(search)
     );
-    console.log(searchList);
+
     setSearchFilter(searchList);
   }
 
-  // if (pokemon.name.includes(search)) {
-  //   return pokemon;
-  // }
-  // return false;
   useEffect(() => {
-    console.log(pokemonList);
     if (pokemonList) {
       let pkList = [...pokemonList];
       setDisplayList(pkList);
-      //setSortList(pkList);
+
       setFilterList(pkList);
     }
   }, [pokemonList]);
-  useEffect(() => {
-    console.log(displayList);
-  }, [displayList]);
+  useEffect(() => {}, [displayList]);
 
   //sort list
   useEffect(() => {
     if (filterList) {
-      console.log(sortValue);
       switch (sortValue) {
         case "alphabetical(asc)":
           sortAplhabeticalAsc();
