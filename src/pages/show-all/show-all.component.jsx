@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useDeferredValue,
+  useTransition,
+} from "react";
 import "./show-all.styles.scss";
 import PokemonCard from "../../components/pokemon-card/pokemon-card.component";
 import Loading from "../../components/loading/loading.component";
@@ -65,6 +70,8 @@ const ShowAll = () => {
   const [filterList2, setFilterList2] = useState(null);
   //searchbar, filters from filterlist2
   const [search, setSearch] = useState("");
+  const deferedSearch = useDeferredValue(search);
+  const [isPending, startTransition] = useTransition();
   //values of the select inputs
   const [sortValue, setSortValue] = useState("number(asc)");
   const [filterValue, setFilterValue] = useState("all");
@@ -150,14 +157,18 @@ const ShowAll = () => {
     }
   }
   function searchPokemon() {
-    if (search === "") {
-      setSearchFilter(filterList2);
+    if (deferedSearch === "") {
+      startTransition(() => {
+        setSearchFilter(filterList2);
+      });
     }
-    let searchList = filterList2.filter((pokemon) =>
-      pokemon.name.includes(search)
-    );
+    startTransition(() => {
+      let searchList = filterList2.filter((pokemon) =>
+        pokemon.name.includes(deferedSearch)
+      );
 
-    setSearchFilter(searchList);
+      setSearchFilter(searchList);
+    });
   }
 
   useEffect(() => {
@@ -168,7 +179,7 @@ const ShowAll = () => {
       setFilterList(pkList);
     }
   }, [pokemonList]);
-  useEffect(() => {}, [displayList]);
+  //useEffect(() => {}, [displayList]);
 
   //sort list
   useEffect(() => {
@@ -236,16 +247,17 @@ const ShowAll = () => {
   }, [filterList2]);
 
   useEffect(() => {
-    if (search === "") {
+    if (deferedSearch === "") {
       setDisplayList(filterList2);
     }
-    if (filterList2 && search !== "") {
+    if (filterList2 && deferedSearch !== "") {
       searchPokemon();
     }
-  }, [filterList2, search]);
+  }, [filterList2, deferedSearch]);
   useEffect(() => {
     setDisplayList(searchFilter);
   }, [searchFilter]);
+
   return displayList ? (
     <div className="show-all">
       <div className="dropdown-section">

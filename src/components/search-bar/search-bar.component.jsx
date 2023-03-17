@@ -1,9 +1,12 @@
 const SearchBar = ({ search, setSearch }) => {
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
   return (
     <div>
       <input
         type="search"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={handleChange}
         value={search}
         placeholder="search pokemon"
       />
