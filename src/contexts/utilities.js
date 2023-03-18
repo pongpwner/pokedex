@@ -1,6 +1,8 @@
-//fetches pokemon list with name and url for more info
+import { useQuery } from "react-query";
+
+//fetches gen 1 pokemon list with name and url for more info
 export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=898").then(
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151").then(
     (response) => response.json()
   );
 
