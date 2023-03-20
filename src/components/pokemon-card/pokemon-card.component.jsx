@@ -11,6 +11,7 @@ import {
   useCurrentPokemon,
   useSelectCurrentPokemonId,
   useUpdateCurrentPokemon,
+  usePokemonList,
 } from "../../contexts/global-contexts";
 const PokemonCard = ({
   name,
@@ -35,6 +36,7 @@ const PokemonCard = ({
   let currentPokemon = useCurrentPokemon();
   let selectPokemonId = useSelectCurrentPokemonId();
   let setCurrentPokemon = useUpdateCurrentPokemon();
+  let pokemonListLength = usePokemonList().length;
 
   function closeModal(e) {
     //reset current pokemon to null to prevent visual lag
@@ -81,7 +83,7 @@ const PokemonCard = ({
     }, 1000);
   }
   const nextPokemon = () => {
-    if (currentPokemonID === 898) {
+    if (currentPokemonID === pokemonListLength) {
       return;
     }
     selectPokemonId((prev) => prev + 1);
