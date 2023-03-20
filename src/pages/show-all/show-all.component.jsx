@@ -11,7 +11,7 @@ import { usePokemonListWithInfo } from "../../contexts/global-contexts";
 import CustomDropdown from "../../components/custom-dropdown/custom-dropdown.component";
 import SearchBar from "../../components/search-bar/search-bar.component";
 const ShowAll = () => {
-  //list of all pokemon
+  //list of all gen 1 pokemon
   let pokemonList = usePokemonListWithInfo();
   const sortByList = [
     "number(asc)",

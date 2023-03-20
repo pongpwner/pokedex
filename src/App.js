@@ -5,13 +5,16 @@ import { GlobalContextProvider } from "./contexts/global-contexts";
 import ShowAll from "./pages/show-all/show-all.component";
 
 import React from "react";
-
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 function App() {
   return (
     <div className="App">
-      <GlobalContextProvider>
-        <ShowAll />
-      </GlobalContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalContextProvider>
+          <ShowAll />
+        </GlobalContextProvider>
+      </QueryClientProvider>
     </div>
   );
 }

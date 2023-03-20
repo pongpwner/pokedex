@@ -5,7 +5,7 @@ import {
   getPokemonListWithInfo,
   getEvolutionChain,
 } from "./utilities";
-
+import { useQuery } from "react-query";
 const PokemonListContext = React.createContext(null);
 export function usePokemonList() {
   return useContext(PokemonListContext);
@@ -46,7 +46,7 @@ export function useCurrentPokemon() {
 export function useUpdateCurrentPokemon() {
   return useContext(UpdateCurrentPokemon);
 }
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 export const GlobalContextProvider = ({ children }) => {
   //id retrieved from dropdown list
   const [currentPokemonID, setCurrentPokemonID] = useState(null);
@@ -66,15 +66,26 @@ export const GlobalContextProvider = ({ children }) => {
   //list of pokemon evolutions
   const [evolutionChain, setEvolutionChain] = useState(null);
 
+  //get pokemon data
+  //maybe call this in show all
+  const pokemonQuery = useQuery({
+    queryKey: ["pokemonData"],
+    queryFn: getPokemonList,
+  });
+
   //gets pokemon list
   useEffect(() => {
-    async function getData() {
-      const pokemonList = await getPokemonList();
+    //console.log(pokemonQuery);
+    // async function getData() {
+    //   const pokemonList = await getPokemonList();
 
-      setPokemonList(pokemonList);
+    //   setPokemonList(pokemonList);
+    // }
+    // getData();
+    if (pokemonQuery.data) {
+      setPokemonList(pokemonQuery.data);
     }
-    getData();
-  }, []);
+  }, [pokemonQuery]);
 
   //gets pokemon list with their types
 
@@ -101,17 +112,23 @@ export const GlobalContextProvider = ({ children }) => {
   }, [currentPokemonID]);
 
   // gets evolution chain
+  const evolutionChainQuery = useQuery({
+    queryKey: ["evolutionChain", currentPokemon],
+    queryFn: () => getEvolutionChain(currentPokemon.evolutionChain),
+  });
   useEffect(() => {
-    if (currentPokemon) {
-      async function getData() {
-        const evolutionChain = await getEvolutionChain(
-          currentPokemon.evolutionChain
-        );
-        setEvolutionChain(evolutionChain);
-      }
-      getData();
-    }
-  }, [currentPokemon]);
+    // if (currentPokemon) {
+    //   async function getData() {
+    //     const evolutionChain = await getEvolutionChain(
+    //       currentPokemon.evolutionChain
+    //     );
+    //     setEvolutionChain(evolutionChain);
+    //   }
+    //   getData();
+    // }
+    //console.log(evolutionChainQuery);
+    setEvolutionChain(evolutionChainQuery.data);
+  }, [evolutionChainQuery]);
 
   return (
     <SelectCurrentPokemonId.Provider value={setCurrentPokemonID}>

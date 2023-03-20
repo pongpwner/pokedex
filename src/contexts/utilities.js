@@ -1,20 +1,24 @@
-import { useQuery } from "react-query";
-
 //fetches gen 1 pokemon list with name and url for more info
 export async function getPokemonList() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151").then(
-    (response) => response.json()
-  );
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
 
-  return data.results;
-}
-export async function getPokemonDescription(id) {
-  const data = await fetch(
-    `https://pokeapi.co/api/v2/pokemon-species/${id}`
-  ).then((response) => response.json());
+  return response.json().then((res) => res.results);
 
-  return data.flavor_text_entries[0].flavor_text;
+  // return data.results;
 }
+// export async function getPokemonDescription(id) {
+//   const response = await fetch(
+//     `https://pokeapi.co/api/v2/pokemon-species/${id}`
+//   );
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+
+//   return response.json().then((res) => res.flavor_text_entries[0].flavor_text);
+// }
 
 export async function getEvolutionChain(url) {
   const evoChain = await fetch(url).then((res) => res.json());
@@ -84,7 +88,13 @@ export async function getEvolutionChain(url) {
       })
     );
 
-    return chain;
+    return new Promise((resolve, reject) => {
+      if (chain) {
+        resolve(chain);
+      } else {
+        reject("failed");
+      }
+    });
   }
 }
 
@@ -147,12 +157,19 @@ export async function getPokemonListWithInfo(pokemonList) {
 
 //gets current pokemon with relevant information
 export async function getCurrentPokemon(id) {
-  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
-    (response) => response.json()
-  );
-  const data1 = await fetch(
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const data = await response.json();
+  const response1 = await fetch(
     `https://pokeapi.co/api/v2/pokemon-species/${id}`
-  ).then((response) => response.json());
+  );
+  if (!response1.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const data1 = await response1.json();
 
   let typesArray = data.types.map((thing) => thing.type.name);
   let abilitiesArray = data.abilities.map((ability) => ability.ability.name);
