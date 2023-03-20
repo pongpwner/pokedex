@@ -6,21 +6,8 @@ export async function getPokemonList() {
   }
 
   return response.json().then((res) => res.results);
-
-  // return data.results;
 }
-// export async function getPokemonDescription(id) {
-//   const response = await fetch(
-//     `https://pokeapi.co/api/v2/pokemon-species/${id}`
-//   );
-//   if (!response.ok) {
-//     throw new Error("Network response was not ok");
-//   }
 
-//   return response.json().then((res) => res.flavor_text_entries[0].flavor_text);
-// }
-
-//helper for getEvolutionChain()
 async function getSprite(url) {
   let data = await fetch(url.replace("-species", "")).then((res) => res.json());
   let sprite = data.sprites.front_default;

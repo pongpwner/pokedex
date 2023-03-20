@@ -75,13 +75,6 @@ export const GlobalContextProvider = ({ children }) => {
 
   //gets pokemon list
   useEffect(() => {
-    //console.log(pokemonQuery);
-    // async function getData() {
-    //   const pokemonList = await getPokemonList();
-
-    //   setPokemonList(pokemonList);
-    // }
-    // getData();
     if (pokemonQuery.data) {
       setPokemonList(pokemonQuery.data);
     }
@@ -94,15 +87,6 @@ export const GlobalContextProvider = ({ children }) => {
       getPokemonListWithInfo(pokemonList.map((pokemon) => pokemon.url)),
   });
   useEffect(() => {
-    // if (pokemonList) {
-    //   const urls = pokemonList.map((pokemon) => pokemon.url);
-    //   //console.log(urls);
-    //   async function getData() {
-    //     const data = await getPokemonListWithInfo(urls);
-    //     setPokemonListWithTypes(data);
-    //   }
-    //   getData();
-    // }
     if (typeQuery.data) setPokemonListWithTypes(typeQuery.data);
   }, [typeQuery.data]);
   //gets current pokemon and its decription
@@ -111,13 +95,6 @@ export const GlobalContextProvider = ({ children }) => {
     queryFn: () => getCurrentPokemon(currentPokemonID),
   });
   useEffect(() => {
-    // if (currentPokemonID) {
-    //   async function getData() {
-    //     const currentPokemon = await getCurrentPokemon(currentPokemonID);
-    //     setCurrentPokemon(currentPokemon);
-    //   }
-    //   getData();
-    // }
     if (currentPokemonQuery.data) setCurrentPokemon(currentPokemonQuery.data);
   }, [currentPokemonQuery.data]);
 
@@ -127,16 +104,6 @@ export const GlobalContextProvider = ({ children }) => {
     queryFn: () => getEvolutionChain(currentPokemon.evolutionChain),
   });
   useEffect(() => {
-    // if (currentPokemon) {
-    //   async function getData() {
-    //     const evolutionChain = await getEvolutionChain(
-    //       currentPokemon.evolutionChain
-    //     );
-    //     setEvolutionChain(evolutionChain);
-    //   }
-    //   getData();
-    // }
-    //console.log(evolutionChainQuery);
     setEvolutionChain(evolutionChainQuery.data);
   }, [evolutionChainQuery.data]);
 
