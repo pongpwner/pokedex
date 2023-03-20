@@ -4,7 +4,7 @@ import React, {
   useDeferredValue,
   useTransition,
 } from "react";
-import "./show-all.styles.scss";
+import "./homepage.styles.scss";
 import PokemonCard from "../../components/pokemon-card/pokemon-card.component";
 import Loading from "../../components/loading/loading.component";
 import { usePokemonListWithInfo } from "../../contexts/global-contexts";

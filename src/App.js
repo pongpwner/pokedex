@@ -2,7 +2,7 @@ import "./scss/_main.scss";
 
 import { GlobalContextProvider } from "./contexts/global-contexts";
 
-import ShowAll from "./pages/show-all/show-all.component";
+import HomePage from "./pages/homepage/homepage.component";
 
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <GlobalContextProvider>
-          <ShowAll />
+          <HomePage />
         </GlobalContextProvider>
       </QueryClientProvider>
     </div>
