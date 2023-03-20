@@ -20,16 +20,19 @@ export async function getPokemonList() {
 //   return response.json().then((res) => res.flavor_text_entries[0].flavor_text);
 // }
 
+//helper for getEvolutionChain()
+async function getSprite(url) {
+  let data = await fetch(url.replace("-species", "")).then((res) => res.json());
+  let sprite = data.sprites.front_default;
+  return sprite;
+}
+
 export async function getEvolutionChain(url) {
+  //get first pokemon in the evolution chain
   const evoChain = await fetch(url).then((res) => res.json());
+  //get second pokemon in evolution chain
   let stage2 = evoChain.chain.evolves_to;
-  async function getSprite(url) {
-    let data = await fetch(
-      evoChain.chain.species.url.replace("-species", "")
-    ).then((res) => res.json());
-    let sprite = data.sprites.front_default;
-    return sprite;
-  }
+
   let sprite = await getSprite(evoChain.chain.species.url);
   let chain = {
     stage: "one",
@@ -100,6 +103,7 @@ export async function getEvolutionChain(url) {
 
 //iterates through list of all pokemon and fetches information and combines relevant information into an array of objects
 export async function getPokemonListWithInfo(pokemonList) {
+  //get list of pokemon
   const listPokemon = await Promise.all(
     pokemonList.map((url, pokemonId) => {
       let pokemonData = fetch(url)
@@ -109,6 +113,7 @@ export async function getPokemonListWithInfo(pokemonList) {
       return pokemonData;
     })
   );
+  //get pokemon descriptions
   const listDescription = await Promise.all(
     pokemonList.map((url, id) => {
       let pokemonData = fetch(
@@ -118,8 +123,9 @@ export async function getPokemonListWithInfo(pokemonList) {
     })
   );
 
+  //this list combines the relevant information from listDescription and pokemonList
   let lastList = [];
-
+  //combine relevant info into lastList
   for (let i = 0; i < listPokemon.length; i++) {
     let typesArray = listPokemon[i].types.map((thing) => thing.type.name);
     let statsArray = listPokemon[i].stats.map((stat) => ({
@@ -152,7 +158,13 @@ export async function getPokemonListWithInfo(pokemonList) {
     });
   }
 
-  return lastList;
+  return new Promise((resolve, reject) => {
+    if (lastList) {
+      resolve(lastList);
+    } else {
+      reject("failed");
+    }
+  });
 }
 
 //gets current pokemon with relevant information
@@ -182,21 +194,23 @@ export async function getCurrentPokemon(id) {
     (entry) => entry.language.name === "en"
   );
 
-  return {
-    sprites: [
-      data.sprites.front_default,
-      data.sprites.back_default,
-      data.sprites.front_shiny,
-      data.sprites.back_shiny,
-    ],
-    types: typesArray,
-    height: data.height,
-    weight: data.weight,
-    name: data.name,
-    abilities: abilitiesArray,
-    stats: statsArray,
-    description: pokdexDesciption[0].flavor_text,
-    id: id,
-    evolutionChain: data1.evolution_chain.url,
-  };
+  return new Promise((resolve, reject) => {
+    resolve({
+      sprites: [
+        data.sprites.front_default,
+        data.sprites.back_default,
+        data.sprites.front_shiny,
+        data.sprites.back_shiny,
+      ],
+      types: typesArray,
+      height: data.height,
+      weight: data.weight,
+      name: data.name,
+      abilities: abilitiesArray,
+      stats: statsArray,
+      description: pokdexDesciption[0].flavor_text,
+      id: id,
+      evolutionChain: data1.evolution_chain.url,
+    });
+  });
 }

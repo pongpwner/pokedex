@@ -88,28 +88,38 @@ export const GlobalContextProvider = ({ children }) => {
   }, [pokemonQuery]);
 
   //gets pokemon list with their types
-
+  const typeQuery = useQuery({
+    queryKey: ["types", pokemonList],
+    queryFn: () =>
+      getPokemonListWithInfo(pokemonList.map((pokemon) => pokemon.url)),
+  });
   useEffect(() => {
-    if (pokemonList) {
-      const urls = pokemonList.map((pokemon) => pokemon.url);
-      //console.log(urls);
-      async function getData() {
-        const data = await getPokemonListWithInfo(urls);
-        setPokemonListWithTypes(data);
-      }
-      getData();
-    }
-  }, [pokemonList]);
+    // if (pokemonList) {
+    //   const urls = pokemonList.map((pokemon) => pokemon.url);
+    //   //console.log(urls);
+    //   async function getData() {
+    //     const data = await getPokemonListWithInfo(urls);
+    //     setPokemonListWithTypes(data);
+    //   }
+    //   getData();
+    // }
+    if (typeQuery.data) setPokemonListWithTypes(typeQuery.data);
+  }, [typeQuery.data]);
   //gets current pokemon and its decription
+  const currentPokemonQuery = useQuery({
+    queryKey: ["currentPokemon", currentPokemonID],
+    queryFn: () => getCurrentPokemon(currentPokemonID),
+  });
   useEffect(() => {
-    if (currentPokemonID) {
-      async function getData() {
-        const currentPokemon = await getCurrentPokemon(currentPokemonID);
-        setCurrentPokemon(currentPokemon);
-      }
-      getData();
-    }
-  }, [currentPokemonID]);
+    // if (currentPokemonID) {
+    //   async function getData() {
+    //     const currentPokemon = await getCurrentPokemon(currentPokemonID);
+    //     setCurrentPokemon(currentPokemon);
+    //   }
+    //   getData();
+    // }
+    if (currentPokemonQuery.data) setCurrentPokemon(currentPokemonQuery.data);
+  }, [currentPokemonQuery.data]);
 
   // gets evolution chain
   const evolutionChainQuery = useQuery({
@@ -128,7 +138,7 @@ export const GlobalContextProvider = ({ children }) => {
     // }
     //console.log(evolutionChainQuery);
     setEvolutionChain(evolutionChainQuery.data);
-  }, [evolutionChainQuery]);
+  }, [evolutionChainQuery.data]);
 
   return (
     <SelectCurrentPokemonId.Provider value={setCurrentPokemonID}>
