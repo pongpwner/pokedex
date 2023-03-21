@@ -19,7 +19,7 @@ You can click a card to open a modal to see even more information about the poke
 
 ## What I Learned
 
-This project was very good practice for styling and working with an api.  I combined data from multiple api calls for each pokemon. I also learned about react context by storing the pokemon data state with context. I applied a css animation to flip the pokemon card.
+This project was very good practice for styling and working with an api.  I used react-query for the first time on this porject.  I combined data from multiple api calls for each pokemon. I also learned about react context by storing the pokemon data state with context. I applied a css animation to flip the pokemon card.  
 
 
 ## Contact
