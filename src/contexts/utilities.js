@@ -15,6 +15,7 @@ async function getSprite(url) {
 }
 
 export async function getEvolutionChain(url) {
+  if (url === null) return;
   //get first pokemon in the evolution chain
   const evoChain = await fetch(url).then((res) => res.json());
   //get second pokemon in evolution chain
@@ -90,6 +91,7 @@ export async function getEvolutionChain(url) {
 
 //iterates through list of all pokemon and fetches information and combines relevant information into an array of objects
 export async function getPokemonListWithInfo(pokemonList) {
+  if (pokemonList === null) return;
   //get list of pokemon
   const listPokemon = await Promise.all(
     pokemonList.map((url, pokemonId) => {
@@ -156,6 +158,9 @@ export async function getPokemonListWithInfo(pokemonList) {
 
 //gets current pokemon with relevant information
 export async function getCurrentPokemon(id) {
+  if (id === null) {
+    return;
+  }
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   if (!response.ok) {
     throw new Error("Network response was not ok");

@@ -81,10 +81,16 @@ export const GlobalContextProvider = ({ children }) => {
   }, [pokemonQuery]);
 
   //gets pokemon list with their types
+
   const typeQuery = useQuery({
     queryKey: ["types", pokemonList],
-    queryFn: () =>
-      getPokemonListWithInfo(pokemonList.map((pokemon) => pokemon.url)),
+    queryFn: () => {
+      if (pokemonList) {
+        return getPokemonListWithInfo(
+          pokemonList.map((pokemon) => pokemon.url)
+        );
+      }
+    },
   });
   useEffect(() => {
     if (typeQuery.data) setPokemonListWithTypes(typeQuery.data);
@@ -101,7 +107,12 @@ export const GlobalContextProvider = ({ children }) => {
   // gets evolution chain
   const evolutionChainQuery = useQuery({
     queryKey: ["evolutionChain", currentPokemon],
-    queryFn: () => getEvolutionChain(currentPokemon.evolutionChain),
+
+    queryFn: () => {
+      if (currentPokemon) {
+        return getEvolutionChain(currentPokemon.evolutionChain);
+      }
+    },
   });
   useEffect(() => {
     setEvolutionChain(evolutionChainQuery.data);
